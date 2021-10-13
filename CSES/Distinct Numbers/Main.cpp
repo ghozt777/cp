@@ -1,14 +1,14 @@
 #include<bits/stdc++.h>
 using namespace std;
-
+ 
 void distinct(int[], int);
-
+ 
 int main() {
 	#ifndef ONLINE_JUDGE
 		freopen("input.txt" , "r" , stdin);
 		freopen("output.txt" , "w" , stdout);
 	#endif
-
+ 
 	int size ;
 	cin >> size;
 	int arr[size];
@@ -16,8 +16,8 @@ int main() {
 		cin >> arr[i];
 	distinct(arr,size);
 }
-
-
+ 
+ 
 void distinct(int *arr , int size){ 
 	sort(arr , arr+size);
 	int count = 1;
