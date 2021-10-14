@@ -22,8 +22,14 @@ int main(){
 }
 "
 touch ./A/a.cpp
+touch ./A/input.txt
+touch ./A/output.txt
 touch ./B/a.cpp
+touch ./B/input.txt
+touch ./B/output.txt
 touch ./C/a.cpp
+touch ./C/input.txt
+touch ./C/output.txt 
 echo "${template}" > ./A/a.cpp
 echo "${template}" > ./B/a.cpp
 echo "${template}" > ./C/a.cpp
