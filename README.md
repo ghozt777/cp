@@ -8,5 +8,9 @@ sudo chmod u+x create.sh
  ```
  ./create.sh
  ```
+ - You can also add it to your path by executing :
+ ```
+ export PATH=$PATH:/appropriate/directory
+ ```
 #### codeforces : [ghozt777](https://codeforces.com/profile/ghozt777) 
 
