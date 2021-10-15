@@ -12,8 +12,11 @@ mkdir A
 mkdir B
 mkdir C
 template="#include<bits/stdc++.h>
-#define ll long long
-#define vi vector<int>
+typedef long long ll;
+typedef vector<int> vi;
+typedef pair<int,int> pi;
+#define PB push_back
+#define MP make_pair
 using namespace std;
 int main(){
 ios::sync_with_stdio(0);
