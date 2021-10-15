@@ -1,3 +1,4 @@
+#!/bin/bash
 echo -n "Round Name:"
 read round
 if [$round == ""]
@@ -15,7 +16,8 @@ template="#include<bits/stdc++.h>
 #define vi vector<int>
 using namespace std;
 int main(){
-
+ios::sync_with_stdio(0);
+cin.tie(0);
 // solve()
 
     return 0;
