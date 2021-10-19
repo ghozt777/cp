@@ -1,0 +1,34 @@
+(key)🔑: foo || (value)🍕: 69
+(key)🔑: ghozt || (value)🍕: 96
+
+ghozt occurs : 1 times
+ Foo occurs: 0 times
+adding in some new elements: (key)🔑: cooo || (value)🍕: 16
+(key)🔑: dooo || (value)🍕: 25
+(key)🔑: foo || (value)🍕: 69
+(key)🔑: fooo || (value)🍕: 15
+(key)🔑: ghozt || (value)🍕: 96
+(key)🔑: mooo || (value)🍕: 13
+(key)🔑: pooo || (value)🍕: 75
+
+printing the elements in the map using iterators: (key)🔑: cooo || (value)🍕: 16
+(key)🔑: dooo || (value)🍕: 25
+(key)🔑: foo || (value)🍕: 69
+(key)🔑: fooo || (value)🍕: 15
+(key)🔑: ghozt || (value)🍕: 96
+(key)🔑: mooo || (value)🍕: 13
+(key)🔑: pooo || (value)🍕: 75
+
+value for gooo is 0
+value for mooo is 13
+now the map is : (key)🔑: fooo || (value)🍕: 15
+(key)🔑: ghozt || (value)🍕: 96
+(key)🔑: mooo || (value)🍕: 13
+(key)🔑: pooo || (value)🍕: 75
+
+question : is the map currently empty ?  ans : false
+expliiclity clearing the map
+question : is the map currently empty ?  ans : true
+printing a multimap: key: ghozt value: 96
+key: ghozt value: 69
+number of values of "ghozt" : 2

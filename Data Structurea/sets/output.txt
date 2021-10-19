@@ -1,0 +1,45 @@
+Enter the number of elements (n): 
+There are 5 unique elements : 
+	1, 2, 3, 4, 5, 
+Process to erase started
+Enter (y to continue n to quit): 
+1st Element before erase : 1
+First Element after erase : 2
+Enter (y to continue n to quit): 
+Set before Erasing: 
+0 1 2 3 4 5 6 7 8 9 10 11 12 
+Set after Erasing: 
+10 11 12 
+
+Erasing using Key : 
+
+set : 1 2 3 4 5 key : 3
+after deletion : 
+set : 1 2 4 5 
+unorderd set : 
+3 2 1 
+here is a normal set : 
+1 2 3 
+multiset stores redundant elements in sorted fashion
+1 1 1 2 2 3 
+after deleting two instances of 1 the multiset becomes:
+1 2 2 3 1 2 2 3 
+
+
+
+----------------NOTES : -------------
+A SET ONLY STORES UNIQUE ELEMENTS IN A SORTED FASHION. Interally they use BSTs
+
+	1> TIME COMPLEXITY TO INSERT: log(n) , where n is the size of the set -> this is because the height of the tree is log(n)
+
+	2> ACCESS TO ELEMENTS:  to access elements inside a set we cannot use something like s[0] : we need to use iterators to access elements inside a set
+
+	3> Erase : To erase a single element use s.erase(set<int>::iterator) and to erase in a range use : erase(set<int>::iterator , set<int>::iterator) the first argument is inclusive and the second one is exclusive i.e. [) Time Complexity : log(n) n = length of the deleted elements, also to Erase Using key foramt : .erase(key)
+
+	4> .find(key) returns iterator to the location of the key , Time Complexity : log(n) Note: If the key is not preset it returns s.end() which points to the location right after the last element in the set
+
+	5> Unordered Set: all the above operations were performed on a ordered set, but there is something known as 'unordered set' . The difference between unorder set and ordered set is that in unordered set the average time complexity is O(1) or constant time whereas for ordered set it is log(n), but the worst case in linear or O(n) where n is the size of the set.
+
+	6> In cases where there is no requirement to have a sorted set use the unsorted_set as almost in all cases it takes O(1) time. In case you get a TLE(Time Limit Error) use set.
+
+	7> Multi Sets allow to store multiple instances of the element in a sorted fashion.

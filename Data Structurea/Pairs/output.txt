@@ -1,0 +1,6 @@
+
+printing the elements in the pairs: 
+☝️ first : 1🤙 second : 2
+printing elements in nested pairs: 
+☝️ first : {3 , 4}🤙 second : 69
+☝️ first : {7 , 8}🤙 second : {5 , 6}
