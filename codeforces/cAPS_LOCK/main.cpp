@@ -22,9 +22,6 @@ void Run();
 
 int main(){
 
-	ios::sync_with_stdio(0);
-	cin.tie(0);
-
 	Run();
 
     return 0;
@@ -32,6 +29,10 @@ int main(){
 
 void Run() {
 	// run your code here
+
+	ios::sync_with_stdio(0);
+	cin.tie(0);
+	
 	string str;
 	int count = 0;
 	getline(cin , str);

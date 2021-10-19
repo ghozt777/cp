@@ -12,7 +12,7 @@ sudo chmod u+x create.sh
  ```
  export PATH=$PATH:/appropriate/directory
  ```
-- Code to create a new build for c++ 17  ( input.txt taken as cin and output.txt taken as cout ) Text Editor: Sublime OS: Ubuntu 
+- Code to create a new build for c++ 17  ( input.txt taken as cin and output.txt taken as cout ) Text Editor: Sublime OS: Ubuntu / OSX 
 ```json
 
 {
