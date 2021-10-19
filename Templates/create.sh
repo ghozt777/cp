@@ -14,6 +14,8 @@ mkdir C
 template="
 #include<bits/stdc++.h>
 
+using namespace std;
+
 typedef long long ll;
 typedef vector<int> vi;
 typedef vector<vi> vii;
@@ -28,8 +30,6 @@ typedef map<string , int> msi;
 #define fr(itr, n) for(int itr = 0 ; itr < n ; itr++)
 
 
-using namespace std;
-
 void Run();
 
 
@@ -38,7 +38,7 @@ int main(){
 	ios::sync_with_stdio(0);
 	cin.tie(0);
 
-	Run()
+	Run();
 
     return 0;
 }
