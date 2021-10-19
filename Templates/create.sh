@@ -11,23 +11,51 @@ cd $round
 mkdir A
 mkdir B
 mkdir C
-template='#include<bits/stdc++.h>
-#define ll long long
-#define vi vector<int>
+template="
+#include<bits/stdc++.h>
+
+typedef long long ll;
+typedef vector<int> vi;
+typedef vector<vi> vii;
+typedef pair<int,int> pi;
+typedef map<string , int> msi;
+
+#define IN emplace
+#define PBK pop_back
+#define PB push_back
+#define MP make_pair
+#define f(n) for(int i = 0 ; i < n ; i++)
+#define fr(itr, n) for(int itr = 0 ; itr < n ; itr++)
+
+
 using namespace std;
+
+void Run();
+
+
 int main(){
-// dirver code start
+
+	ios::sync_with_stdio(0);
+	cin.tie(0);
+
+	Run()
+
+    return 0;
+}
+
+void Run() {
+	// run your code here
+
 	#ifndef ONLINE_JUDGE
 	    freopen("input.txt" , "r" , stdin);    
 	    freopen("output.txt" , "w" , stdout);
 	#endif
-// driver code end
+	// dont move above code (for file i/o)
 
-// solve()
-
-    return 0;
+	return ;
 }
-'
+
+"
 touch ./A/a.cpp
 touch ./A/input.txt
 touch ./A/output.txt
