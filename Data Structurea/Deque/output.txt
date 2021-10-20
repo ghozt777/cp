@@ -1,0 +1,6 @@
+the deque is: 
+9 4 6 1 1 5 2 
+poping the first -> pop_front() and the last element -> pop_back() 
+
+ Now the deque is: 
+4 6 1 1 5 

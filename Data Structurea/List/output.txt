@@ -1,0 +1,5 @@
+
+ The List Contains:
+4 9 1 
+Removing elements takes constat time or O(1): Removing 1 we get
+4 9 
