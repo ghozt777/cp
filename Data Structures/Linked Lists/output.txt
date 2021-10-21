@@ -1,0 +1,77 @@
+
+print the elements where elements are pushed back: 
+1> 🧀 first: bigger than ur pp 🍩 || 🥨 second: 11
+2> 🧀 first: bigger than ur pp 🍩 || 🥨 second: 10
+3> 🧀 first: nine 🍩 || 🥨 second: 9
+4> 🧀 first: eight 🍩 || 🥨 second: 8
+5> 🧀 first: seven 🍩 || 🥨 second: 7
+6> 🧀 first: six 🍩 || 🥨 second: 6
+7> 🧀 first: five 🍩 || 🥨 second: 5
+8> 🧀 first: four 🍩 || 🥨 second: 4
+9> 🧀 first: three 🍩 || 🥨 second: 3
+10> 🧀 first: two 🍩 || 🥨 second: 2
+11> 🧀 first: one 🍩 || 🥨 second: 1
+12> 🧀 first: zero 🍩 || 🥨 second: 0
+
+print the elements where elements are pushed front: 
+1> 🧀 first: bigger than ur pp || 🥨 second: 69
+2> 🧀 first: bigger than ur pp || 🥨 second: 69
+3> 🧀 first: six || 🥨 second: 6
+4> 🧀 first: seven || 🥨 second: 7
+5> 🧀 first: bigger than ur pp || 🥨 second: 69
+6> 🧀 first: eight || 🥨 second: 8
+7> 🧀 first: nine || 🥨 second: 9
+8> 🧀 first: bigger than ur pp || 🥨 second: 10
+9> 🧀 first: bigger than ur pp || 🥨 second: 11
+
+The size of the first Node is: 
+12
+The size of the second Node is: 
+9
+ deleting the pos : 1 , 2 , 3 elements fron the second node we ge]]	:
+
+elements after deletion: 
+1> 🧀 first: bigger than ur pp || 🥨 second: 69
+2> 🧀 first: seven || 🥨 second: 7
+3> 🧀 first: eight || 🥨 second: 8
+4> 🧀 first: nine || 🥨 second: 9
+5> 🧀 first: bigger than ur pp || 🥨 second: 10
+6> 🧀 first: bigger than ur pp || 🥨 second: 11
+
+The size after deletion: 
+6
+ reversing the second node :
+1> 🧀 first: bigger than ur pp || 🥨 second: 11
+2> 🧀 first: bigger than ur pp || 🥨 second: 10
+3> 🧀 first: nine || 🥨 second: 9
+4> 🧀 first: eight || 🥨 second: 8
+5> 🧀 first: seven || 🥨 second: 7
+6> 🧀 first: bigger than ur pp || 🥨 second: 69
+
+printing the first node in reverse: 
+12> 🧀 first: zero 🍩 || 🥨 second: 0
+11> 🧀 first: one 🍩 || 🥨 second: 1
+10> 🧀 first: two 🍩 || 🥨 second: 2
+9> 🧀 first: three 🍩 || 🥨 second: 3
+8> 🧀 first: four 🍩 || 🥨 second: 4
+7> 🧀 first: five 🍩 || 🥨 second: 5
+6> 🧀 first: six 🍩 || 🥨 second: 6
+5> 🧀 first: seven 🍩 || 🥨 second: 7
+4> 🧀 first: eight 🍩 || 🥨 second: 8
+3> 🧀 first: nine 🍩 || 🥨 second: 9
+2> 🧀 first: bigger than ur pp 🍩 || 🥨 second: 10
+1> 🧀 first: bigger than ur pp 🍩 || 🥨 second: 11
+
+ reversing the first node :
+1> 🧀 first: zero 🍩 || 🥨 second: 0
+2> 🧀 first: one 🍩 || 🥨 second: 1
+3> 🧀 first: two 🍩 || 🥨 second: 2
+4> 🧀 first: three 🍩 || 🥨 second: 3
+5> 🧀 first: four 🍩 || 🥨 second: 4
+6> 🧀 first: five 🍩 || 🥨 second: 5
+7> 🧀 first: six 🍩 || 🥨 second: 6
+8> 🧀 first: seven 🍩 || 🥨 second: 7
+9> 🧀 first: eight 🍩 || 🥨 second: 8
+10> 🧀 first: nine 🍩 || 🥨 second: 9
+11> 🧀 first: bigger than ur pp 🍩 || 🥨 second: 10
+12> 🧀 first: bigger than ur pp 🍩 || 🥨 second: 11
