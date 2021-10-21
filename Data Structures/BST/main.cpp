@@ -22,16 +22,28 @@ struct Node {
 	Node * left;
 	Node * right;
 };
-
+// much simpler structure
 struct BSTNode {
 	int data;
 	pair<BSTNode* , BSTNode*> link;
 };
 
 Node * insert_node(Node* , int);
-BSTNode * insert(BSTNode* , int);
-bool search_node(Node* , int);
+BSTNode * insert_node(BSTNode* , int);
+bool search_bst(Node* , int);
 bool search_bst(BSTNode * , int);
+pair<int , int> min_max(Node *);
+pair<int , int> min_max(BSTNode *);
+int find_min(Node *);
+int find_min(BSTNode *);
+int find_max(Node *);
+int find_max(BSTNode *);
+int height(Node*);
+int height(BSTNode*);
+void print_in_sorted(Node*);
+void print_in_sorted(BSTNode*);
+void print_tree(Node*);
+void print_tree(BSTNode*);
 
 void Run();
 
@@ -56,29 +68,51 @@ void Run() {
 	root = insert_node(root , 9);
 	root = insert_node(root , 30);
 
-	search_node(root ,15) ? cout << "True\n" : cout << "False\n";
-	search_node(root ,5) ? cout << "True\n" : cout << "False\n";
-	search_node(root ,9) ? cout << "True\n" : cout << "Flase\n";
-	search_node(root ,30) ? cout << "True\n" : cout << "False\n";
-	search_node(root ,10) ? cout << "True\n" : cout << "False\n";
-	search_node(root ,69) ? cout << "True\n" : cout << "False\n";
+	cout <<  "Elements of the first tree in sorted order: \n";
+	print_in_sorted(root);
+	cout << "\n\n";
+
+	cout << " 15 in tree 1 ? " ; search_bst(root ,15) ? cout << "True\n" : cout << "False\n";
+	cout << " 5 in tree 1 ? " ; search_bst(root ,5) ? cout << "True\n" : cout << "False\n";
+	cout << " 9 in tree 1 ? " ; search_bst(root ,9) ? cout << "True\n" : cout << "Flase\n";
+	cout << " 30 in tree 1 ? " ; search_bst(root ,30) ? cout << "True\n" : cout << "False\n";
+	cout << " 10 in tree 1 ? " ; search_bst(root ,10) ? cout << "True\n" : cout << "False\n";
+	cout << " 69 in tree 1 ? " ; search_bst(root ,69) ? cout << "True\n" : cout << "False\n";
 
 	cout << "\nNew BST Structure:\n";
-	root_bst = insert(root_bst , 90);
-	root_bst = insert(root_bst , 31);
-	root_bst = insert(root_bst , 62);
-	root_bst = insert(root_bst , 69);
-	root_bst = insert(root_bst , 19);
-	root_bst = insert(root_bst , 19);
-	root_bst = insert(root_bst , 19);
-	root_bst = insert(root_bst , 10);
+	root_bst = insert_node(root_bst , 90);
+	root_bst = insert_node(root_bst , 31);
+	root_bst = insert_node(root_bst , 62);
+	root_bst = insert_node(root_bst , 69);
+	root_bst = insert_node(root_bst , 19);
+	root_bst = insert_node(root_bst , 19);
+	root_bst = insert_node(root_bst , 19);
+	root_bst = insert_node(root_bst , 10);
 
-	search_bst(root_bst , 10) ? cout << "True\n" : cout << "False\n" ;
-	search_bst(root_bst , 90) ? cout << "True\n" : cout << "False\n" ;
-	search_bst(root_bst , 18) ? cout << "True\n" : cout << "False\n" ;
-	search_bst(root_bst , 69) ? cout << "True\n" : cout << "False\n" ;
-	search_bst(root_bst , 62) ? cout << "True\n" : cout << "False\n" ;
+	cout <<  "Elements of the second tree in sorted order: \n";
+	print_in_sorted(root_bst);
+	cout << "\n\n";
 
+	cout << " 10 in tree 2 ? " ; search_bst(root_bst , 10) ? cout << "True\n" : cout << "False\n" ;
+	cout << " 90 in tree 2 ? " ; search_bst(root_bst , 90) ? cout << "True\n" : cout << "False\n" ;
+	cout << " 18 in tree 2 ? " ; search_bst(root_bst , 18) ? cout << "True\n" : cout << "False\n" ;
+	cout << " 69 in tree 2 ? " ; search_bst(root_bst , 69) ? cout << "True\n" : cout << "False\n" ;
+	cout << " 62 in tree 2 ? " ; search_bst(root_bst , 62) ? cout << "True\n" : cout << "False\n" ;
+	pair<int , int> node_min_max = min_max(root);
+	pair<int , int> bst_min_max = min_max(root_bst);
+
+	cout << "\nMax and Min in first node: \n";
+	cout << "max: " << node_min_max.first << " min: " << node_min_max.second << "\n";
+	cout << "\nMax and Min in second node: \n";
+	cout << "max: " << bst_min_max.first << " min: " << bst_min_max.second << "\n";
+
+	cout << "\nHeight of first tree: " << height(root);
+	cout << "\nHeight of second tree: " << height(root_bst);
+	cout << "\n\n";
+	cout << "The first tree look like:\n";
+	print_tree(root);
+	cout << "\nThe second tree looks like:\n";
+	print_tree(root_bst);
 
 	return ;
 }
@@ -99,18 +133,18 @@ Node *  insert_node(Node * root , int x) {
 	return root;
 }
 
-BSTNode * insert(BSTNode * root , int data){
+BSTNode * insert_node(BSTNode * root , int data){
 	if(!root){
 		BSTNode * newNode = new BSTNode() ; 
 		newNode->data = data;
 		newNode->link.first = NULL;
 		newNode->link.second = NULL;
-		return newNode;
+		root = newNode;
 	}
 	else if(data <= root->data)
-		root->link.first = insert(root->link.first , data);
+		root->link.first = insert_node(root->link.first , data);
 	else 
-		root->link.second = insert(root->link.second , data);
+		root->link.second = insert_node(root->link.second , data);
 	return root;
 }
 
@@ -122,12 +156,99 @@ bool search_bst(BSTNode * root , int target) {
 		return search_bst(root->link.second , target);
 }
 
-bool search_node(Node* root , int x) {
+bool search_bst(Node* root , int x) {
 	if(!root) return false;
 	if(root->data == x) return true;
-	else if (x <= root->data) return search_node(root->left , x);
-	else return search_node(root->right , x);
+	else if (x <= root->data) return search_bst(root->left , x);
+	else return search_bst(root->right , x);
 }
+
+
+pair<int , int> min_max(Node * root){
+	if(!root) return make_pair(-1 , -1);
+	return make_pair(find_max(root) , find_min(root));
+}
+
+pair<int , int> min_max(BSTNode * root){
+	if(!root) return make_pair(-1 , -1);
+	return make_pair(find_max(root) , find_min(root));
+}
+
+int find_min(Node * root){
+	if(!root->left) return root->data;
+	else return find_min(root->left);
+}
+
+int find_max(Node * root){
+	if(!root->right) return root->data;
+	else return find_max(root->right);
+}
+
+int find_min(BSTNode * root){
+	if(!root->link.first) return root->data;
+	else return find_min(root->link.first);
+}
+
+int find_max(BSTNode * root){
+	if(!root->link.second) return root->data;
+	else return find_max(root->link.second);
+}
+
+void print_in_sorted(Node* root){
+	// this uses the inorder traversal of deapth first algorithm
+	if(!root) return ;
+	print_in_sorted(root->left);
+	cout << root->data << " ";
+	print_in_sorted(root->right);
+}
+
+void print_in_sorted(BSTNode* root){
+	// this uses the inorder traversal of deapth first algorithm
+	if(!root) return ;
+	print_in_sorted(root->link.first);
+	cout << root->data << " ";
+	print_in_sorted(root->link.second);
+}
+
+int height(Node * root){
+	if(!root) return -1; // height of an empty tree is -1
+	return max(height(root->left) , height(root->right)) + 1;
+}
+
+int height(BSTNode * root){
+	if(!root) return -1; // height of an empty tree is -1
+	return max(height(root->link.first) , height(root->link.second)) + 1;
+}
+
+void print_tree(Node * root){
+	// this uses breath first algorithm of level order traversal
+	queue<Node *> q;
+	if(!root) return;
+	q.IN(root);
+	while(!q.empty()){
+		Node * curr = q.front();
+		if(curr->left)q.IN(curr->left);
+		if(curr->right)q.IN(curr->right);
+		cout << curr->data << " ";
+		q.pop();
+	}
+}
+
+void print_tree(BSTNode * root){
+	// this uses breath first algorithm of level order traversal
+	queue<BSTNode *> q;
+	if(!root) return;
+	q.IN(root);
+	while(!q.empty()){
+		BSTNode * curr = q.front();
+		if(curr->link.first)q.IN(curr->link.first);
+		if(curr->link.second)q.IN(curr->link.second);
+		cout << curr->data << " ";
+		q.pop();
+	}
+}
+
+// Notes to refer: 
 
 
 //-------------------------------------------------------
@@ -180,75 +301,91 @@ bool search_node(Node* root , int x) {
 		= 2^(number of levels) - 1
 	*/
 
-	/*
-		Given number of nodes find the height of a perfect binary tree with the same number of nodes:
-		Sol: 
-			if n = number of nodes and h = height of the tree , 
-				we know , 
-
-					=> n = 2^(h+1) - 1
-					=> (n+1) = 2^(h+1)
-					taking log both sides:
-					=> log(n+1) = h+1 
-					NOTE: here log(x) = log(x) / log(2) or log with base 2
-					=>h = log(n+1) - 1 = height of the tree
-		
-		Also Height of a complete Binary Tree = floor(log(n)) where n is the number of nodes and log is log with base 2
-
-			=> h = floor(log(n))
-
-		Minimum height of a tree with n nodes is one which is as densly packed as possible or a Strict Binary Tree
-
-		Therefore , minimum height of a tree with n nodes is 
-			h = floor(log(n+1))
-			and maximum height possible is (n+1)
-
-	Time Complexity for Operation is O(h) where h is the height of the tree
-	Therefore for a strict binary tree is O(log(n)) and for a tree with (n+1) height iits O(n).
-	Hence a Sttrict Binary Tree offers a better time complexity 
-
-	Balanced Binary Tree: Difference between height of left and right subtree for every node is not more than 1 
-		diff = | h(left) - h(right) |  
-
-	Height of an empty tree = -1
-	Height of a tree with 1 node = 0
-	----------------------------------------------------------
-	----------------------------------------------------------
 	
-	Binary Search Tree : Offers quick search and quick update
- 	Can be implemented using arrays or linked lists
+	// 	Given number of nodes find the height of a perfect binary tree with the same number of nodes:
+	// 	Sol: 
+	// 		if n = number of nodes and h = height of the tree , 
+	// 			we know , 
 
- 	Time Complexities:
- 	For Arrays:
- 		Search: O(n) for unsorted O(log(n)) for sorted
- 		Insert: O(1) if not filled O(n) if sorted array
- 		Insert: O(n) if array is filled
- 		Delete: O(n)
+	// 				=> n = 2^(h+1) - 1
+	// 				=> (n+1) = 2^(h+1)
+	// 				taking log both sides:
+	// 				=> log(n+1) = h+1 
+	// 				NOTE: here log(x) = log(x) / log(2) or log with base 2
+	// 				=>h = log(n+1) - 1 = height of the tree
+		
+	// 	Also Height of a complete Binary Tree = floor(log(n)) where n is the number of nodes and log is log with base 2
 
- 	For Linked List:
- 		Search: O(n)
- 		Insert: O(1) for push_front O(n) for push_back
- 		Delete: O(n)
+	// 		=> h = floor(log(n))
 
- 	For BST:
- 		Insert: O(log(n))
- 		Search: O(log(n))
- 		Delete: O(log(n))
- 		In worst case cost of all the operations is O(n) 
- 		This worst case condidition can be avoided by making sure that the tree is always balanced.
+	// 	Minimum height of a tree with n nodes is one which is as densly packed as possible or a Strict Binary Tree
 
- 	What is a Binary Search Tree ?
- 	Ans: A Binary Search Tree is a Binary Tree in which for each node , vakue of all the nodes in the left subtree is lesser or equal than valuef of all the nodes in right subtree.
- 				    🌳 <--- root
- 					|
- 			-----------------
- 		    |	            |
- 		    |               |
- 		    |	            |
-		    🪴              🪴 <----- BSTs
-		Left Subtree      Right Subtree
-	 (lesser or equal)      (greater)
+	// 	Therefore , minimum height of a tree with n nodes is 
+	// 		h = floor(log(n+1))
+	// 		and maximum height possible is (n+1)
+
+	// Time Complexity for Operation is O(h) where h is the height of the tree
+	// Therefore for a strict binary tree is O(log(n)) and for a tree with (n+1) height iits O(n).
+	// Hence a Sttrict Binary Tree offers a better time complexity 
+
+	// Balanced Binary Tree: Difference between height of left and right subtree for every node is not more than 1 
+	// 	diff = | h(left) - h(right) |  
+
+	// Height of an empty tree = -1
+	// Height of a tree with 1 node = 0
+	// ----------------------------------------------------------
+	// ----------------------------------------------------------
+	
+	// Binary Search Tree : Offers quick search and quick update
+ // 	Can be implemented using arrays or linked lists
+
+ // 	Time Complexities:
+ // 	For Arrays:
+ // 		Search: O(n) for unsorted O(log(n)) for sorted
+ // 		Insert: O(1) if not filled O(n) if sorted array
+ // 		Insert: O(n) if array is filled
+ // 		Delete: O(n)
+
+ // 	For Linked List:
+ // 		Search: O(n)
+ // 		Insert: O(1) for push_front O(n) for push_back
+ // 		Delete: O(n)
+
+ // 	For BST:
+ // 		Insert: O(log(n))
+ // 		Search: O(log(n))
+ // 		Delete: O(log(n))
+ // 		In worst case cost of all the operations is O(n) 
+ // 		This worst case condidition can be avoided by making sure that the tree is always balanced.
+
+ // 	What is a Binary Search Tree ?
+ // 	Ans: A Binary Search Tree is a Binary Tree in which for each node , vakue of all the nodes in the left subtree is lesser or equal than valuef of all the nodes in right subtree.
+ // 				    🌳 <--- root
+ // 					|
+ // 			-----------------
+ // 		    |	            |
+ // 		    |               |
+ // 		    |	            |
+		// 	    🪴              🪴 <----- BSTs
+	// 	Left Subtree      Right Subtree
+	//  (lesser or equal)      (greater)
  	
-	*/
+ /*
+	Tree Traversal: process of visiting each node in the tree exactly once in some order
+
+	Visit: Reading / Processing data in a node
+
+	Tree Traversal Algorithms can be classified into two categories:
+		1. Breath First : Level Order Traversal 
+		2. Depth First : Preorder : root -> left subtree -> right subtree
+						 Inorder: left -> root -> right
+						 PostOrder: left -> right -> root
+		// Inorderd traversal of a BST gives the elements in a sorted fashion
+
+
+
+ */
+
+
 
 

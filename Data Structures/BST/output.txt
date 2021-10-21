@@ -1,13 +1,33 @@
-True
-False
-True
-True
-True
-False
+Elements of the first tree in sorted order: 
+9 10 15 20 30 
+
+ 15 in tree 1 ? True
+ 5 in tree 1 ? False
+ 9 in tree 1 ? True
+ 30 in tree 1 ? True
+ 10 in tree 1 ? True
+ 69 in tree 1 ? False
 
 New BST Structure:
-True
-True
-False
-True
-True
+Elements of the second tree in sorted order: 
+10 19 19 19 31 62 69 90 
+
+ 10 in tree 2 ? True
+ 90 in tree 2 ? True
+ 18 in tree 2 ? False
+ 69 in tree 2 ? True
+ 62 in tree 2 ? True
+
+Max and Min in first node: 
+max: 30 min: 9
+
+Max and Min in second node: 
+max: 90 min: 10
+
+Height of first tree: 2
+Height of second tree: 5
+
+The first tree look like:
+10 9 20 15 30 
+The second tree looks like:
+90 31 19 62 19 69 19 10 
