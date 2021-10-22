@@ -574,7 +574,7 @@ void Run() {
 	cout << "\nPrinting the tree: \n" ;
 	print_tree(root) ;
 	cout << "\nDeleting 19 from the second tree:\n" ;
-	root_bst = delete_node(root_bst , 10) ;
+	root_bst = delete_node(root_bst , 19) ;
 	cout << "\nPrinting the tree:\n";
 	print_tree(root_bst);
 

@@ -51,4 +51,4 @@ Printing the tree:
 Deleting 19 from the second tree:
 
 Printing the tree:
-90 31 19 62 19 69 19 
+90 31 62 69 
