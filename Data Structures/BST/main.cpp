@@ -16,6 +16,11 @@ typedef map<string , int> msi;
 #define f(n) for(int i = 0 ; i < n ; i++)
 #define fr(itr, n) for(int itr = 0 ; itr < n ; itr++)
 
+void Run();
+
+// ------------------------------------------------------
+//  Binary Search Trees 
+// ------------------------------------------------------
 
 struct Node {
 	int data ; 
@@ -27,6 +32,8 @@ struct BSTNode {
 	int data;
 	pair<BSTNode* , BSTNode*> link;
 };
+
+// ------------ : Functions : --------------------------------
 
 Node * insert_node(Node* , int);
 BSTNode * insert_node(BSTNode* , int);
@@ -44,81 +51,20 @@ void print_in_sorted(Node*);
 void print_in_sorted(BSTNode*);
 void print_tree(Node*);
 void print_tree(BSTNode*);
+bool isBinarySearchTree(Node*);
+bool isBinarySearchTree(BSTNode*);
+bool isBST(Node*); // faster than the upper version
+bool isBST(BSTNode *);
+bool isBSTUtil(Node* , int , int);
+bool isBSTUtil(BSTNode* , int , int);
+bool isSmaller(Node * , int);
+bool isGreater(Node * , int);
+bool isSmaller(BSTNode * , int);
+bool isGreater(BSTNode * , int);
 
-void Run();
+// ----------------: Implementation :--------------------------
 
-
-int main(){
-
-	ios::sync_with_stdio(0);
-	cin.tie(0);
-
-	Run();
-
-    return 0;
-}
-
-void Run() {
-	// run your code here
-	Node * root = NULL;
-	BSTNode * root_bst = NULL;
-	root = insert_node(root , 10);
-	root = insert_node(root , 20);
-	root = insert_node(root , 15);
-	root = insert_node(root , 9);
-	root = insert_node(root , 30);
-
-	cout <<  "Elements of the first tree in sorted order: \n";
-	print_in_sorted(root);
-	cout << "\n\n";
-
-	cout << " 15 in tree 1 ? " ; search_bst(root ,15) ? cout << "True\n" : cout << "False\n";
-	cout << " 5 in tree 1 ? " ; search_bst(root ,5) ? cout << "True\n" : cout << "False\n";
-	cout << " 9 in tree 1 ? " ; search_bst(root ,9) ? cout << "True\n" : cout << "Flase\n";
-	cout << " 30 in tree 1 ? " ; search_bst(root ,30) ? cout << "True\n" : cout << "False\n";
-	cout << " 10 in tree 1 ? " ; search_bst(root ,10) ? cout << "True\n" : cout << "False\n";
-	cout << " 69 in tree 1 ? " ; search_bst(root ,69) ? cout << "True\n" : cout << "False\n";
-
-	cout << "\nNew BST Structure:\n";
-	root_bst = insert_node(root_bst , 90);
-	root_bst = insert_node(root_bst , 31);
-	root_bst = insert_node(root_bst , 62);
-	root_bst = insert_node(root_bst , 69);
-	root_bst = insert_node(root_bst , 19);
-	root_bst = insert_node(root_bst , 19);
-	root_bst = insert_node(root_bst , 19);
-	root_bst = insert_node(root_bst , 10);
-
-	cout <<  "Elements of the second tree in sorted order: \n";
-	print_in_sorted(root_bst);
-	cout << "\n\n";
-
-	cout << " 10 in tree 2 ? " ; search_bst(root_bst , 10) ? cout << "True\n" : cout << "False\n" ;
-	cout << " 90 in tree 2 ? " ; search_bst(root_bst , 90) ? cout << "True\n" : cout << "False\n" ;
-	cout << " 18 in tree 2 ? " ; search_bst(root_bst , 18) ? cout << "True\n" : cout << "False\n" ;
-	cout << " 69 in tree 2 ? " ; search_bst(root_bst , 69) ? cout << "True\n" : cout << "False\n" ;
-	cout << " 62 in tree 2 ? " ; search_bst(root_bst , 62) ? cout << "True\n" : cout << "False\n" ;
-	pair<int , int> node_min_max = min_max(root);
-	pair<int , int> bst_min_max = min_max(root_bst);
-
-	cout << "\nMax and Min in first node: \n";
-	cout << "max: " << node_min_max.first << " min: " << node_min_max.second << "\n";
-	cout << "\nMax and Min in second node: \n";
-	cout << "max: " << bst_min_max.first << " min: " << bst_min_max.second << "\n";
-
-	cout << "\nHeight of first tree: " << height(root);
-	cout << "\nHeight of second tree: " << height(root_bst);
-	cout << "\n\n";
-	cout << "The first tree look like:\n";
-	print_tree(root);
-	cout << "\nThe second tree looks like:\n";
-	print_tree(root_bst);
-
-	return ;
-}
-
-
-Node *  insert_node(Node * root , int x) {
+Node * insert_node(Node * root , int x) {
 	if(!root){
 		Node * newNode = new Node();
 		newNode->data = x;
@@ -196,6 +142,9 @@ int find_max(BSTNode * root){
 
 void print_in_sorted(Node* root){
 	// this uses the inorder traversal of deapth first algorithm
+	// Time Complexity : O(n)
+	// Space Complexity: O(log(n)) Best ? Avg Case
+	//					 O(n) :  Worst Case
 	if(!root) return ;
 	print_in_sorted(root->left);
 	cout << root->data << " ";
@@ -236,6 +185,8 @@ void print_tree(Node * root){
 
 void print_tree(BSTNode * root){
 	// this uses breath first algorithm of level order traversal
+	// Time Complexity : O(n) n = no . of nodes
+	// Space Complexity : O(1) best  ; O(n) : worst / avg 
 	queue<BSTNode *> q;
 	if(!root) return;
 	q.IN(root);
@@ -246,6 +197,74 @@ void print_tree(BSTNode * root){
 		cout << curr->data << " ";
 		q.pop();
 	}
+}
+
+bool isBinarySearchTree(Node * root){
+	if(!root) return true;
+	if(isSmaller(root->left , root->data) && isGreater(root->right , root->data) && isBinarySearchTree(root->left) && isBinarySearchTree(root->right))
+	return true;
+	else return false;
+}
+
+bool isSmaller(Node * root , int target){
+	if(!root) return true;
+	if(root->data <= target && isSmaller(root->left , target) && isSmaller(root->right , target))
+		return true;
+	else return false;
+}
+
+bool isGreater(Node * root , int target){
+	if(!root) return true;
+	if(root->data > target && isGreater(root->left , target) && isGreater(root->right , target))
+		return true;
+	else return false;
+}
+
+bool isBinarySearchTree(BSTNode * root){
+	if(!root) return true;
+	if(isSmaller(root->link.first , root->data) && isGreater(root->link.second , root->data) && isBinarySearchTree(root->link.first) && isBinarySearchTree(root->link.second))
+	return true;
+	else return false;
+}
+
+bool isSmaller(BSTNode * root , int target){
+	if(!root) return true;
+	if(root->data <= target && isSmaller(root->link.first , target) && isSmaller(root->link.second , target))
+		return true;
+	else return false;
+}
+
+bool isGreater(BSTNode * root , int target){
+	if(!root) return true;
+	if(root->data > target && isGreater(root->link.first , target) && isGreater(root->link.second , target))
+		return true;
+	else return false;
+}
+
+bool isBST(Node * root){
+	return isBSTUtil(root , INT_MAX , INT_MIN);
+}
+
+bool isBSTUtil(Node * root , int upper_bound , int lower_bound){
+	// base case:
+	if(!root) return true;
+	// check if the data is int the range or not
+	if(root->data <= upper_bound && root->data >= lower_bound && isBSTUtil(root->left , root->data , lower_bound) && isBSTUtil(root->right , upper_bound , root->data))
+		return true;
+	else return false;
+}
+
+bool isBST(BSTNode * root){
+	return isBSTUtil(root , INT_MAX , INT_MIN);
+}
+
+bool isBSTUtil(BSTNode * root , int upper_bound , int lower_bound){
+	// base case:
+	if(!root) return true;
+	// check if the data is int the range or not
+	if(root->data <= upper_bound && root->data >= lower_bound && isBSTUtil(root->link.first , root->data , lower_bound) && isBSTUtil(root->link.second , upper_bound , root->data))
+		return true;
+	else return false;
 }
 
 // Notes to refer: 
@@ -359,7 +378,7 @@ void print_tree(BSTNode * root){
  // 		This worst case condidition can be avoided by making sure that the tree is always balanced.
 
  // 	What is a Binary Search Tree ?
- // 	Ans: A Binary Search Tree is a Binary Tree in which for each node , vakue of all the nodes in the left subtree is lesser or equal than valuef of all the nodes in right subtree.
+ // 	Ans: A Binary Search Tree is a Binary Tree in which for each node , vakue of all the nodes in the left subtree is lesser or equal than valuef of all the nodes in right subtree and the root node.
  // 				    🌳 <--- root
  // 					|
  // 			-----------------
@@ -385,6 +404,88 @@ void print_tree(BSTNode * root){
 
 
  */
+
+// ---------------------------------------------------------------
+// ---------------------------------------------------------------
+// ---------------------------------------------------------------
+
+int main(){
+
+	ios::sync_with_stdio(0);
+	cin.tie(0);
+
+	Run();
+
+    return 0;
+}
+
+void Run() {
+	// run your code here
+	Node * root = NULL;
+	BSTNode * root_bst = NULL;
+	root = insert_node(root , 10);
+	root = insert_node(root , 20);
+	root = insert_node(root , 15);
+	root = insert_node(root , 9);
+	root = insert_node(root , 30);
+
+	cout <<  "Elements of the first tree in sorted order: \n";
+	print_in_sorted(root);
+	cout << "\n\n";
+
+	cout << " 15 in tree 1 ? " ; search_bst(root ,15) ? cout << "True\n" : cout << "False\n";
+	cout << " 5 in tree 1 ? " ; search_bst(root ,5) ? cout << "True\n" : cout << "False\n";
+	cout << " 9 in tree 1 ? " ; search_bst(root ,9) ? cout << "True\n" : cout << "Flase\n";
+	cout << " 30 in tree 1 ? " ; search_bst(root ,30) ? cout << "True\n" : cout << "False\n";
+	cout << " 10 in tree 1 ? " ; search_bst(root ,10) ? cout << "True\n" : cout << "False\n";
+	cout << " 69 in tree 1 ? " ; search_bst(root ,69) ? cout << "True\n" : cout << "False\n";
+
+	cout << "\nNew BST Structure:\n";
+	root_bst = insert_node(root_bst , 90);
+	root_bst = insert_node(root_bst , 31);
+	root_bst = insert_node(root_bst , 62);
+	root_bst = insert_node(root_bst , 69);
+	root_bst = insert_node(root_bst , 19);
+	root_bst = insert_node(root_bst , 19);
+	root_bst = insert_node(root_bst , 19);
+	root_bst = insert_node(root_bst , 10);
+
+	cout <<  "Elements of the second tree in sorted order: \n";
+	print_in_sorted(root_bst);
+	cout << "\n\n";
+
+	cout << " 10 in tree 2 ? " ; search_bst(root_bst , 10) ? cout << "True\n" : cout << "False\n" ;
+	cout << " 90 in tree 2 ? " ; search_bst(root_bst , 90) ? cout << "True\n" : cout << "False\n" ;
+	cout << " 18 in tree 2 ? " ; search_bst(root_bst , 18) ? cout << "True\n" : cout << "False\n" ;
+	cout << " 69 in tree 2 ? " ; search_bst(root_bst , 69) ? cout << "True\n" : cout << "False\n" ;
+	cout << " 62 in tree 2 ? " ; search_bst(root_bst , 62) ? cout << "True\n" : cout << "False\n" ;
+	pair<int , int> node_min_max = min_max(root);
+	pair<int , int> bst_min_max = min_max(root_bst);
+
+	cout << "\nMax and Min in first node: \n";
+	cout << "max: " << node_min_max.first << " min: " << node_min_max.second << "\n";
+	cout << "\nMax and Min in second node: \n";
+	cout << "max: " << bst_min_max.first << " min: " << bst_min_max.second << "\n";
+
+	cout << "\nHeight of first tree: " << height(root);
+	cout << "\nHeight of second tree: " << height(root_bst);
+	cout << "\n\n";
+	cout << "The first tree look like:\n";
+	print_tree(root);
+	cout << "\nThe second tree looks like:\n";
+	print_tree(root_bst);
+	cout << "\n\ncheck if the first tree is a binary search tree:\n";
+	isBinarySearchTree(root) ? cout << "True" : cout << "False" ;
+	cout << "\n\ncheck if the second tree is a binary search tree:\n";
+	isBinarySearchTree(root_bst) ? cout << "True" : cout << "False" ;
+	cout << "\n\ncheck if the first tree is a binary search tree: using the faster approach\n";
+	isBST(root) ? cout << "True" : cout << "False" ;
+	cout << "\n\ncheck if the second tree is a binary search tree: using the faster approach\n";
+	isBST(root_bst) ? cout << "True" : cout << "False" ;
+	cout << "\n\n";
+
+	return ;
+}
 
 
 

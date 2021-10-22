@@ -31,3 +31,16 @@ The first tree look like:
 10 9 20 15 30 
 The second tree looks like:
 90 31 19 62 19 69 19 10 
+
+check if the first tree is a binary search tree:
+True
+
+check if the second tree is a binary search tree:
+True
+
+check if the first tree is a binary search tree: using the faster approach
+True
+
+check if the second tree is a binary search tree: using the faster approach
+True
+
