@@ -37,10 +37,14 @@ struct BSTNode {
 
 Node * insert_node(Node* , int);
 BSTNode * insert_node(BSTNode* , int);
-bool search_bst(Node* , int);
-bool search_bst(BSTNode * , int);
 pair<int , int> min_max(Node *);
 pair<int , int> min_max(BSTNode *);
+Node * delete_node(Node * , int);
+Node * find_min_address(Node *);
+BSTNode * delete_node(BSTNode * , int);
+BSTNode * find_min_address(BSTNode *);
+bool search_bst(Node* , int);
+bool search_bst(BSTNode * , int);
 int find_min(Node *);
 int find_min(BSTNode *);
 int find_max(Node *);
@@ -267,6 +271,88 @@ bool isBSTUtil(BSTNode * root , int upper_bound , int lower_bound){
 	else return false;
 }
 
+Node * find_min_address(Node * root) {
+	if(!(root->left)) return root ;
+	return find_min_address(root->left);
+}
+
+Node * delete_node(Node * root , int target) {
+	if(!root) return root ;
+	else if(target < root->data) root->left = delete_node(root->left , target);
+	else if(target > root->data) root->right = delete_node(root->right , target);
+	else {
+		// we found the node 
+		// CASE 1 : When the node to delete is a leaf node 
+		if(!(root->right && root->left)){
+			delete root ; // This causes the root to be a dangling pointer
+			root = NULL ; // fixing it !
+			return root ;
+		}
+
+		// CASE 2 : When the node has only 1 child
+		if(!(root->left)){
+			Node * temp = root ;
+			root = root->right ;
+			delete temp ;
+		}
+		if(!(root->right)){
+			Node * temp = root ;
+			root = root->left ;
+			delete temp ;
+		}
+
+		// CASE 3 : When the root has 2 children
+		if(root->left && root->right) {
+			Node * min = find_min_address(root->right) ;
+			root->data = min->data ;
+			root->right = delete_node(root->right , min->data) ;
+			return root ;
+		}
+	}
+	return root ;
+}
+
+BSTNode * find_min_address(BSTNode * root) {
+	if(!(root->link.first)) return root ;
+	return find_min_address(root->link.first);
+}
+
+BSTNode * delete_node(BSTNode * root , int target) {
+	if(!root) return root ;
+	else if(target < root->data) root->link.first = delete_node(root->link.first , target);
+	else if(target > root->data) root->link.second = delete_node(root->link.second , target);
+	else {
+		// we found the node 
+		// CASE 1 : When the node to delete is a leaf node 
+		if(!(root->link.second && root->link.first)){
+			delete root ; // This causes the root to be a dangling pointer
+			root = NULL ; // fixing it !
+			return root ;
+		}
+
+		// CASE 2 : When the node has only 1 child
+		if(!(root->link.first)){
+			BSTNode * temp = root ;
+			root = root->link.second ;
+			delete temp ;
+		}
+		if(!(root->link.second)){
+			BSTNode * temp = root ;
+			root = root->link.first ;
+			delete temp ;
+		}
+
+		// CASE 3 : When the root has 2 children
+		if(root->link.first && root->link.second) {
+			BSTNode * min = find_min_address(root->link.second) ;
+			root->data = min->data ;
+			root->link.second = delete_node(root->link.second , min->data) ;
+			return root ;
+		}
+	}
+	return root ;
+}
+
 // Notes to refer: 
 
 
@@ -483,6 +569,14 @@ void Run() {
 	cout << "\n\ncheck if the second tree is a binary search tree: using the faster approach\n";
 	isBST(root_bst) ? cout << "True" : cout << "False" ;
 	cout << "\n\n";
+	cout << "Deleting Node from the 1st Tree with value 20 : \n";
+	root = delete_node(root , 20) ; 
+	cout << "\nPrinting the tree: \n" ;
+	print_tree(root) ;
+	cout << "\nDeleting 19 from the second tree:\n" ;
+	root_bst = delete_node(root_bst , 10) ;
+	cout << "\nPrinting the tree:\n";
+	print_tree(root_bst);
 
 	return ;
 }

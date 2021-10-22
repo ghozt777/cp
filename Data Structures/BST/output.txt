@@ -44,3 +44,11 @@ True
 check if the second tree is a binary search tree: using the faster approach
 True
 
+Deleting Node from the 1st Tree with value 20 : 
+
+Printing the tree: 
+10 9 30 15 
+Deleting 19 from the second tree:
+
+Printing the tree:
+90 31 19 62 19 69 19 
