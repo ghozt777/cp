@@ -64,7 +64,7 @@ bool isBSTUtil(BSTNode* , int , int);
 bool isSmaller(Node * , int);
 bool isGreater(Node * , int);
 bool isSmaller(BSTNode * , int);
-bool isGreater(BSTNode * , int);
+bool isGreater(BSTNode * , int); 
 
 // ----------------: Implementation :--------------------------
 
@@ -573,9 +573,9 @@ void Run() {
 	root = delete_node(root , 20) ; 
 	cout << "\nPrinting the tree: \n" ;
 	print_tree(root) ;
-	cout << "\nDeleting 19 from the second tree:\n" ;
+	cout << "\n\nDeleting 19 from the second tree:\n" ;
 	root_bst = delete_node(root_bst , 19) ;
-	cout << "\nPrinting the tree:\n";
+	cout << "Printing the tree:\n";
 	print_tree(root_bst);
 
 	return ;

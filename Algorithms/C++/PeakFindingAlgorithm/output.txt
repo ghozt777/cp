@@ -1,0 +1,5 @@
+
+peak in the array is (method 1): 8
+peak in the array is (method 2): 8
+peak in the array is (method 3): 8
+peak in the array using a BST: 8
