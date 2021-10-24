@@ -3,7 +3,7 @@
 using namespace std ;
 void dnf_sort(int * , int) ;
 void print_arr(int *, int);
-void swpa(int * , int *) ;
+void swap(int * , int *) ;
 int main () {
   int arr[] = { 1,2,3,1,2,3,1,2,3,2,2,1,1,3,3,2,3,1,2};
   dnf_sort(arr , sizeof(arr) / sizeof(arr[0]));
@@ -31,6 +31,6 @@ void dnf_sort(int * arr , int n) {
   while(curr < high) {
     if(arr[curr] == 1) swap(&arr[curr++] , &arr[low++]);
     else if(arr[curr] == 2) curr++ ;
-    else swap(arr[curr] , arr[high--]) ;
+    else swap(&arr[curr] , &arr[high--]) ;
   }
 }
