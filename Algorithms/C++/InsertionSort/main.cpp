@@ -1,3 +1,6 @@
+// Kunals Video : https://www.youtube.com/watch?v=By_5-RRqVeE
+// mycodeschool : https://www.youtube.com/watch?v=i-SKeOcBwko
+
 #include<bits/stdc++.h>
 using namespace std ;
 
