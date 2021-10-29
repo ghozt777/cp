@@ -1,4 +1,5 @@
 
+// link : https://codeforces.com/problemset/problem/58/A
 #include<bits/stdc++.h>
 
 using namespace std;
@@ -56,7 +57,6 @@ void Run() {
 		}
 	}
 	cout << "YES" ;
-
 	return ;
 }
 
