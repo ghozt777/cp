@@ -1,0 +1,14 @@
+45
+45
+bf: True(q2)
+sw: True(q2)
+bf: True(q3)
+sw: True(q3)
+bf: True(q3)
+sw: True(q3)
+bf: False(q3)
+sf: False(q3)
+3-bonaci Series:
+0, 0, 1, 1, 2, 4, 7, 13, 
+4-bonaci Series:
+0, 0, 0, 1, 1, 2, 4, 8, 15, 29, 

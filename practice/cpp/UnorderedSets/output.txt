@@ -1,0 +1,11 @@
+9 2 5 -1 1 
+Size: 5
+10 is not present in the set
+-1 is present in the set
+5 is present in the set
+0 is not present in the set
+9 is present in the set
+-9 is not present in the set
+us.count(-9) = 0
+2 5 1 
+Cleared Size: 0

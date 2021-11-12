@@ -1,0 +1,7 @@
+Prefix Sum:
+2 10 13 22 28 33 37 
+YES
+YES
+[8, 12, 12, 13, 14, 99] verdict: IS SORTED
+[8, 12, 11, 11, 13, 14, 99] verdict: NOT SORTED
+Max Occuring Elemenet is : 4

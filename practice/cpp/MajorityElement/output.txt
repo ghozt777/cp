@@ -1,0 +1,4 @@
+Majority Element in the array: [20, 30, 40, 50, 50, 50, 50]
+value : 50 pos : 3
+value : 50 pos : 3
+value : 50 pos : 3

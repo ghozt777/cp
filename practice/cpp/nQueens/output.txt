@@ -1,0 +1,61 @@
+Q X X X X 
+X X Q X X 
+X X X X Q 
+X Q X X X 
+X X X Q X 
+---------
+Q X X X X 
+X X X Q X 
+X Q X X X 
+X X X X Q 
+X X Q X X 
+---------
+X Q X X X 
+X X X Q X 
+Q X X X X 
+X X Q X X 
+X X X X Q 
+---------
+X Q X X X 
+X X X X Q 
+X X Q X X 
+Q X X X X 
+X X X Q X 
+---------
+X X Q X X 
+Q X X X X 
+X X X Q X 
+X Q X X X 
+X X X X Q 
+---------
+X X Q X X 
+X X X X Q 
+X Q X X X 
+X X X Q X 
+Q X X X X 
+---------
+X X X Q X 
+Q X X X X 
+X X Q X X 
+X X X X Q 
+X Q X X X 
+---------
+X X X Q X 
+X Q X X X 
+X X X X Q 
+X X Q X X 
+Q X X X X 
+---------
+X X X X Q 
+X Q X X X 
+X X X Q X 
+Q X X X X 
+X X Q X X 
+---------
+X X X X Q 
+X X Q X X 
+Q X X X X 
+X X X Q X 
+X Q X X X 
+---------
+Possible Number of combinations: 10

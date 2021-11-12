@@ -1,0 +1,5 @@
+Buy : 7 (Day 1)  -> Sell: 7 (Day 1) 
+Buy : 1 (Day 2)  -> Sell: 5 (Day 3) 
+Buy : 3 (Day 4)  -> Sell: 6 (Day 5) 
+Total Profit(my sol): 7
+Total Profit(GFG): 1116799127

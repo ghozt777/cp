@@ -1,0 +1,5 @@
+key: u a dumb fuck || value: 1
+key: position || value: 69
+key: ghozt || value: 7
+key is present -> key : ghozt value: 7
+key abc not found
