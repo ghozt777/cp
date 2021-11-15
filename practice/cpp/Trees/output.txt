@@ -1,0 +1,70 @@
+inorder: 
+20 10 40 30 50 
+preorder: 
+10 20 30 40 50 
+postorder: 
+20 40 50 30 10 
+height of the tree = 3
+at 0th level : 10 
+at 1th level : 20 30 
+at 2th level : 40 50 
+
+Creating a new tree and deleting the old one ...
+Height of the new tree = 4
+at 0th level : 10 
+at 1th level : 20 30 
+at 2th level : 40 80 70 
+at 3th level : 50 
+
+level order traversal: 
+10 20 30 40 80 70 50 
+printing the tree libe by line:
+10 
+20 30 
+40 80 70 
+50 
+printing the tree libe by line(version 2):
+10 
+20 30 
+40 80 70 
+50 
+number of nodes = 7
+max value in the tree is = 80
+Printing the left nodes (of tree 1) : 
+recursive:
+30 50 60 10 
+iterative:
+30 50 60 10 
+Printing the left nodes (of tree 2) : 
+recursive:
+10 20 40 50 
+iterative:
+10 20 40 50 
+Does Tree 1 follow children sum property ? : NO
+
+Does Tree 2 follow children sum property ? : NO
+
+Tree 3:
+1 
+2 3 
+4 5 
+using brute force:
+
+Is Tree 1 balanced ? : NO
+
+Is Tree 2 balanced ? : NO
+
+Is Tree 3 balanced ? : YES
+
+using efficient solution:
+
+Is Tree 1 balanced ? : NO
+
+Is Tree 2 balanced ? : NO
+
+Is Tree 3 balanced ? : YES
+width of tree 1 = 1
+width of tree 2 = 3
+width of tree 3 = 2
+after tree 2 gets converted into a Doubly Linked List:
+10 30 70 50 
