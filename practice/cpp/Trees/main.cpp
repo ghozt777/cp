@@ -1,4 +1,3 @@
-
 #include<bits/stdc++.h>
 
 using namespace std;
@@ -289,6 +288,45 @@ Node *BTToDLL(Node *root){
     return head;
 }
 
+Node * makeBinaryTree(int in[] , int pre[] , int start , int end){
+	// takes twi arrays which contains the nodes of a tree in inorder and preopder fashion construct a binary tree out of it and return the root 
+	// to construct a binary tree inorder traversal is compulsory i.e. we cant make a binary tree using just preorder and postorder we need to have inorder and some other traversal to construct the tree
+	if(start > end) return NULL ;
+	static int preIndex = 0 ;
+	Node * root = new Node(pre[preIndex++]) ;
+	int idx ;
+	for(int i = start ; i <= end ; i++) if(in[i] == root->key) idx = i ;
+	root->left = makeBinaryTree(in , pre , start , idx - 1) ;
+	root->right = makeBinaryTree(in , pre , idx + 1 , end) ;
+	return root ;
+}
+
+void printSpiral(Node * root){
+	// takes root as an argument and then prints the nodes of the tree in a spiral format
+	stack<int> s ;
+	queue<Node *> q ;
+	bool reverse = false ;
+	q.IN(root) ;
+	while(!q.empty()){
+		int c = q.size() ;
+		for(int i = 0 ; i < c ; i++){
+			Node * curr = q.front() ; 
+			q.pop() ;
+			if(reverse) s.push(curr->key) ;
+			else cout << curr->key << " " ;
+			if(curr->left) q.IN(curr->left) ;
+			if(curr->right) q.IN(curr->right) ;
+		}
+		if(reverse){
+			while(!s.empty()){
+				cout << s.top() << " " ;
+				s.pop() ;
+			}
+		}
+		reverse = !reverse ;
+	}
+}
+
 // ------------------------------------------------------------------------
 
 
@@ -461,6 +499,20 @@ void Run() {
 	cout << "after tree 2 gets converted into a Doubly Linked List:\n" ;
 	printList(head) ;
 	printName();
+	int in[] = {4,2,5,1,6,3,7} ;
+	int pre[] = {1,2,4,5,3,6,7} ;
+	Node * r = makeBinaryTree(in , pre , 0 , sizeof(in) / sizeof(in[0]) - 1) ;
+	cout << "Binary tree contructed from inorder traversal of : " ;
+	printArray(in , sizeof(in) / sizeof(in[0])) ;
+	cout << " and preorder traversal of : " ;
+	printArray(pre , sizeof(pre) / sizeof(pre[0])) ;
+	cout << " is : \n" ;
+	printLevels_v2(r);
+	cout << "width: " << width(r) << " height: " << height(r) << "\n" ;
+	cout << "spiral traversal of the last tree gives: \n" ;
+	printSpiral(r) ;
+	cout << endl ;
+	
 	return ;
 }
 

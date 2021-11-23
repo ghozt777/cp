@@ -67,4 +67,10 @@ width of tree 1 = 1
 width of tree 2 = 3
 width of tree 3 = 2
 after tree 2 gets converted into a Doubly Linked List:
-10 30 70 50 
+40 20 80 10 30 70 50 
+ghozt
+ Binary tree contructed from inorder traversal of : [20, 10, 40, 30, 50] and preorder traversal of : [10, 20, 30, 40, 50] is : 
+10 
+20 30 
+40 50 
+width: 2 height: 3
