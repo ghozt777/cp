@@ -1,4 +1,4 @@
-package HashSet;
+package com.ghozt.HashSet;
 import java.util.HashSet ;
 import java.util.Iterator ;
 public class Main {

@@ -32,30 +32,30 @@ int main(){
 
 
 
-int divCount(int n){
-    int c = 1 ;
-    for(int i = 0 ; i <= n ; i++) if(n%i == 0) ++c ;
-        return c ;
-}
+
 
 void Run() {
-    int n ;
-    cin >> n ;
-    int arr[n] ;
-    f(n) cin >> arr[i] ;
-    int c = 0 ;
-    for(int i = 0 ; i < n ; i++){
-        for(int j = 1 ; j <= n ; j++){
-            int s = 0 ;
-            for(int k = i ; k < j ; k++){
-                s += divCount(arr[k]) ;
-            }
-            if(s%2 == 1) ++c ;
-        }
-    }
-    cout << c ;
+	// run your code here
+	int t ;
+	cin >> t ;
+	while(t--){
+		int a , b ;
+		cin >> a >> b ;
+		cout << min(a,min(b,(a+b)/4)) << endl ;
+	}	
 }
 
 
+
+
+
+
+void printArray(int arr[] , int n){
+	if(n==0){cout << "[]"; return ;}
+	if(n==1){cout << "[" << arr[0] << "]"; return ;}
+	cout << "[" << arr[0] <<", " ;
+	for(int i = 1 ; i < n - 1 ; i++) cout << arr[i] << ", " ; 
+	cout << arr[n-1] << "]" ;
+}
 
 

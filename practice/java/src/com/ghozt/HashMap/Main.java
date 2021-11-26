@@ -1,10 +1,13 @@
-package HashMap;
+package com.ghozt.HashMap;
 
 import java.util.HashMap;
 import java.util.Map ;
 
+import static com.ghozt.OOP.L2.packages.HelloWorld.hello;
+
 public class Main {
     public static void main(String[] args) {
+        hello() ;
         HashMap<String , Integer> hm = new HashMap<>() ;
         hm.put("ghozt" , 7) ;
         hm.put("abc" , 123) ;

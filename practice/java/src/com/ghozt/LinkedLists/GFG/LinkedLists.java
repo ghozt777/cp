@@ -1,5 +1,4 @@
-package LinkedLists;
-import java.util.Arrays ;
+package com.ghozt.LinkedLists.GFG;
 import java.util.ArrayList ;
 
 
