@@ -1,4 +1,4 @@
-
+// link : https://codeforces.com/problemset/problem/499/B
 #include<bits/stdc++.h>
 
 using namespace std;
@@ -44,7 +44,6 @@ void Run() {
     cout << d.find(ip)->second << " " ;
    }
 }
-
 
 
 

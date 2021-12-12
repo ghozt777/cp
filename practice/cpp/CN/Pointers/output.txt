@@ -1,0 +1,4 @@
+10
+In the symbol table -> 
+memory address 0x16af1393c stores the value 10 assigned to variable "a"
+11
