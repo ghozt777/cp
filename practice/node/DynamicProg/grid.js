@@ -38,7 +38,8 @@ const bruteForce = () => {
 
 const gridTraveller_memoized = () => {
   const gridTraveller = (m, n, memo = {}) => {
-    if ([m, n].toString() in memo) return memo[[m, n].toString()];
+    if ([m, n].toString() in memo) return memo[[m, n].toString()]; // (x , y) has the same result as  (y , x)
+    if ([n, m].toString() in memo) return memo[[n, m].toString()];
     if (m == 1 && n == 1) return 1;
     if (m <= 0 || n <= 0) return 0;
     memo[[m, n].toString()] =
