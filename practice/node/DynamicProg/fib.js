@@ -54,6 +54,12 @@ const useFibMemo = () => {
   // we are going to use plain objects , but equiavlent DS can be a hashmap in other languages
   // key -> argument to the function : val -> returned value from the function
 
+  /**
+   * Complexity Analysis :
+   * O(2n)  = O(n) Space Complexity
+   * O(2n)  = O(n) Time Complexity
+   */
+
   const fib = (n, memo = {}) => {
     if (n in memo) {
       // console.log("used memo for n = ", n, "with result : ", memo[n]);
@@ -67,13 +73,12 @@ const useFibMemo = () => {
 };
 
 function main() {
-  const [fib_i, fib_r] = useFib();
-  let n = parseInt(question("Enter n : "));
-  // console.log(`The ${n}th Fibanacci number is (iterative): ${fib_i(n)}`); // give n = 50 and see the difference
-  // the iterative solution works much faster
-  // console.log(`The ${n}th Fibanacci number is (recursive): ${fib_r(n)}`);
+  const [fib_i, fib_r, fib_ar] = useFib();
   const fib = useFibMemo();
-  console.log(`The ${n}th Fibanacci number is (memoized): ${fib(n)}`);
+  let n = parseInt(question("Enter n : "));
+  // console.log(`The ${n}th Fibanacci number is (iterative): ${fib_i(n)}`);
+  // console.log(`The ${n}th Fibanacci number is (recursive): ${fib_r(n)}`); // slow af Eg : for n = 50
+  console.log(`The ${n}th Fibonacci number is (memoized): ${fib(n)}`);
 }
 
 main();
