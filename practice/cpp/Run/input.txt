@@ -1,5 +1,3 @@
-4 3
-codeforces codesecrof
-contest round
-letter message
-codeforces contest letter contest
+6
+5
+3 5 4 2 1

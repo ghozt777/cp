@@ -30,19 +30,18 @@ int main(){
 }
 
 void Run() {
-   int n , m ;
-   cin >> n >> m ;
-   unordered_map<string , string> d ;
-   f(m){
-    string a , b ;
-    cin >> a >> b ;
-        d.insert({a , size(a) <= size(b) ? a : b}) ;
-   }
-   f(n){
-    string ip ;
-    cin >> ip ;
-    cout << d.find(ip)->second << " " ;
-   }
+  int stoneGameVII(vector<int>& S) {
+        int N = S.size();
+        vector<int> dp(N);
+        for (int i = N - 2; ~i; i--) {
+            int total = S[i];
+            for (int j = i + 1; j < N; j++) {
+                total += S[j];
+                dp[j] = max(total - S[i] - dp[j], total - S[j] - dp[j-1]);
+            }
+        }
+        cout << dp[N-1];
+    }
 }
 
 
