@@ -1,26 +1,26 @@
 #include <iostream>
 #include <cstring>
+#include<string>
 using namespace std;
 
-
-int solve(int n , int k){
-    int s = 0 ;
-     for(int i = 1 ; i <= n ; i++){
-        if(i%k != 0) s += i ;
+string getCompressedString(string &str) {
+    // Write your code here.
+    string ans = "" ;
+    int n = size(str) ;
+    for(int i = 0 ; i < n ; i++){
+        int s = i ;
+        while(str[i] == str[i+1]) ++i ;
+        if(s == i) ans += str[s] ;
+        else ans += str[s] + to_string(i - s + 1);
     }
-    return s ;
+    return ans ;
 }
 
-void Run() {
-    int t ;
-    cin >> t ;
-    while(t--){
-        int n , k ;
-        cin >> n >> k ;
-        cout << solve(n , k) << endl ;
-    }
-}
 int main() {
-    Run() ;
-    return 0 ;
+    int size = 1e6;
+    string str;
+    cin >> str;
+    str = getCompressedString(str);
+    cout << str << endl;
 }
+// a3b2cd2e5
