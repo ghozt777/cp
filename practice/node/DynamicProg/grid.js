@@ -37,6 +37,11 @@ const bruteForce = () => {
 };
 
 const gridTraveller_memoized = () => {
+  /**
+   * Complexity Analysis :
+   * O(m * n) -> Time
+   * O(m + n) -> Space
+   */
   const gridTraveller = (m, n, memo = {}) => {
     if ([m, n].toString() in memo) return memo[[m, n].toString()]; // (x , y) has the same result as  (y , x)
     if ([n, m].toString() in memo) return memo[[n, m].toString()];
