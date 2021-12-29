@@ -1,4 +1,3 @@
-
 // link: https://leetcode.com/problems/letter-combinations-of-a-phone-number/
 #include<bits/stdc++.h>
 
@@ -31,7 +30,7 @@ typedef map<string , int> msi;
       if(i == 3) break ;
       char ch = 'a' + ((digit - 2)*3 + i) ;
       vector<string> ret = util(p + ch , up.substr(1)) ;
-      ans.insert(ans.end() , ret.begin() , ret.end()) ; 
+      ans.insert(ans.end() , ret.begin() , ret.end()) ;
     }
     else if(digit == 7) {
       char ch = 'a' + (15 + i) ;
@@ -67,24 +66,22 @@ void Run();
 
 int main(){
 
-	ios::sync_with_stdio(0);
-	cin.tie(0);
+    ios::sync_with_stdio(0);
+    cin.tie(0);
 
-	Run();
+    Run();
 
     return 0;
 }
 
 void Run() {
-	// run your code here
-	string digits ;
-	cin >> digits ;
-	vector<string> ans = letterCombinations(digits) ;
-	// printing the ans ;
-	for(vector<string>::iterator x  = ans.begin() ; x != ans.end() ; x++)
-		cout << *x << "\n" ;
+    // run your code here
+    string digits ;
+    cin >> digits ;
+    vector<string> ans = letterCombinations(digits) ;
+    // printing the ans ;
+    for(vector<string>::iterator x  = ans.begin() ; x != ans.end() ; x++)
+        cout << *x << "\n" ;
 
-	return ;
+    return ;
 }
-
-

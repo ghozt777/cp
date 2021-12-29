@@ -15,7 +15,28 @@ typedef map<string , int> msi;
 #define MP make_pair
 #define f(n) for(int i = 0 ; i < n ; i++)
 #define fr(itr, n) for(int itr = 0 ; itr < n ; itr++)
+bool check(string s){
+        int n = s.size() ;
+        for(int i = 0 ; i < n / 2 ; i++) if(s[i] != s[n - i - 1]) return false ;
+        return true ;
+    }
 
+string longestPalindrome(string s) {
+  int max = 0 ;
+  int st = 0 ;
+  int e = 0 ;
+  for(int i = 0 ; i < s.size() ; i++){
+    for(int j = i ; j < s.size() ; j++){
+      if(check(s.substr(i , j - i + 1)) && max < s.substr(i , j - i + 1).size()){
+        st = i ;
+        e = j ;
+        max = s.substr(i , j - i + 1).size() ;
+      }
+    }
+  }
+  return s.substr(st , e - st + 1) ;
+}
+    
 
 void Run();;
 
@@ -30,18 +51,7 @@ int main(){
 }
 
 void Run() {
-  int stoneGameVII(vector<int>& S) {
-        int N = S.size();
-        vector<int> dp(N);
-        for (int i = N - 2; ~i; i--) {
-            int total = S[i];
-            for (int j = i + 1; j < N; j++) {
-                total += S[j];
-                dp[j] = max(total - S[i] - dp[j], total - S[j] - dp[j-1]);
-            }
-        }
-        cout << dp[N-1];
-    }
+  cout << longestPalindrome("cbbd") ;
 }
 
 
