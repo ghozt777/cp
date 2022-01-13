@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		846A1221277C68BF00F1BC9E /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 846A121C277C686A00F1BC9E /* main.cpp */; };
+		849A2060277C8DDE006366EA /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 849A205B277C8D4C006366EA /* main.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -47,6 +47,15 @@
 			);
 			runOnlyForDeploymentPostprocessing = 1;
 		};
+		849A2057277C8D4C006366EA /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = /usr/share/man/man1/;
+			dstSubfolderSpec = 0;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 1;
+		};
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
@@ -57,6 +66,8 @@
 		846A120C277C670F00F1BC9E /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		846A121A277C686A00F1BC9E /* longest-substring-without-repeating-words */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "longest-substring-without-repeating-words"; sourceTree = BUILT_PRODUCTS_DIR; };
 		846A121C277C686A00F1BC9E /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
+		849A2059277C8D4C006366EA /* median-of-two-sorted-arrays */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "median-of-two-sorted-arrays"; sourceTree = BUILT_PRODUCTS_DIR; };
+		849A205B277C8D4C006366EA /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -88,6 +99,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		849A2056277C8D4C006366EA /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -105,6 +123,7 @@
 				8410F31C277C5D62006F847C /* add-two-numbera */,
 				846A120B277C670F00F1BC9E /* letter-combinations-of-a-phone-number */,
 				846A121B277C686A00F1BC9E /* longest-substring-without-repeating-words */,
+				849A205A277C8D4C006366EA /* median-of-two-sorted-arrays */,
 				8444412D277C4E9200F66268 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -116,6 +135,7 @@
 				8410F31B277C5D62006F847C /* add-two-numbera */,
 				846A120A277C670F00F1BC9E /* letter-combinations-of-a-phone-number */,
 				846A121A277C686A00F1BC9E /* longest-substring-without-repeating-words */,
+				849A2059277C8D4C006366EA /* median-of-two-sorted-arrays */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -134,6 +154,14 @@
 				846A121C277C686A00F1BC9E /* main.cpp */,
 			);
 			path = "longest-substring-without-repeating-words";
+			sourceTree = "<group>";
+		};
+		849A205A277C8D4C006366EA /* median-of-two-sorted-arrays */ = {
+			isa = PBXGroup;
+			children = (
+				849A205B277C8D4C006366EA /* main.cpp */,
+			);
+			path = "median-of-two-sorted-arrays";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -207,6 +235,23 @@
 			productReference = 846A121A277C686A00F1BC9E /* longest-substring-without-repeating-words */;
 			productType = "com.apple.product-type.tool";
 		};
+		849A2058277C8D4C006366EA /* median-of-two-sorted-arrays */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 849A205D277C8D4C006366EA /* Build configuration list for PBXNativeTarget "median-of-two-sorted-arrays" */;
+			buildPhases = (
+				849A2055277C8D4C006366EA /* Sources */,
+				849A2056277C8D4C006366EA /* Frameworks */,
+				849A2057277C8D4C006366EA /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "median-of-two-sorted-arrays";
+			productName = "median-of-two-sorted-arrays";
+			productReference = 849A2059277C8D4C006366EA /* median-of-two-sorted-arrays */;
+			productType = "com.apple.product-type.tool";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -228,6 +273,9 @@
 					846A1219277C686A00F1BC9E = {
 						CreatedOnToolsVersion = 13.1;
 					};
+					849A2058277C8D4C006366EA = {
+						CreatedOnToolsVersion = 13.1;
+					};
 				};
 			};
 			buildConfigurationList = 84444127277C4E9200F66268 /* Build configuration list for PBXProject "c++" */;
@@ -247,6 +295,7 @@
 				8410F31A277C5D62006F847C /* add-two-numbera */,
 				846A1209277C670F00F1BC9E /* letter-combinations-of-a-phone-number */,
 				846A1219277C686A00F1BC9E /* longest-substring-without-repeating-words */,
+				849A2058277C8D4C006366EA /* median-of-two-sorted-arrays */,
 			);
 		};
 /* End PBXProject section */
@@ -263,7 +312,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				846A1221277C68BF00F1BC9E /* main.cpp in Sources */,
+				849A2060277C8DDE006366EA /* main.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -275,6 +324,13 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		846A1216277C686A00F1BC9E /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		849A2055277C8D4C006366EA /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -459,6 +515,22 @@
 			};
 			name = Release;
 		};
+		849A205E277C8D4C006366EA /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		849A205F277C8D4C006366EA /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -503,6 +575,15 @@
 			buildConfigurations = (
 				846A121F277C686A00F1BC9E /* Debug */,
 				846A1220277C686A00F1BC9E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		849A205D277C8D4C006366EA /* Build configuration list for PBXNativeTarget "median-of-two-sorted-arrays" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				849A205E277C8D4C006366EA /* Debug */,
+				849A205F277C8D4C006366EA /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
