@@ -19,11 +19,11 @@ typedef map<string , int> msi;
 void Run();
 
 // ------------------------------------------------------
-//  Binary Search Trees 
+//  Binary Search Trees
 // ------------------------------------------------------
 
 struct Node {
-	int data ; 
+	int data ;
 	Node * left;
 	Node * right;
 };
@@ -64,7 +64,7 @@ bool isBSTUtil(BSTNode* , int , int);
 bool isSmaller(Node * , int);
 bool isGreater(Node * , int);
 bool isSmaller(BSTNode * , int);
-bool isGreater(BSTNode * , int); 
+bool isGreater(BSTNode * , int);
 
 // ----------------: Implementation :--------------------------
 
@@ -78,14 +78,14 @@ Node * insert_node(Node * root , int x) {
 	}
 	else if(x <= root->data)
 		root->left = insert_node(root->left , x);
-	else 
+	else
 		root->right = insert_node(root->right ,x);
 	return root;
 }
 
 BSTNode * insert_node(BSTNode * root , int data){
 	if(!root){
-		BSTNode * newNode = new BSTNode() ; 
+		BSTNode * newNode = new BSTNode() ;
 		newNode->data = data;
 		newNode->link.first = NULL;
 		newNode->link.second = NULL;
@@ -93,7 +93,7 @@ BSTNode * insert_node(BSTNode * root , int data){
 	}
 	else if(data <= root->data)
 		root->link.first = insert_node(root->link.first , data);
-	else 
+	else
 		root->link.second = insert_node(root->link.second , data);
 	return root;
 }
@@ -102,7 +102,7 @@ bool search_bst(BSTNode * root , int target) {
 	if(!root) return false;
 	if(root->data == target) return true;
 	else if(target <= root->data) return search_bst(root->link.first , target);
-	else 
+	else
 		return search_bst(root->link.second , target);
 }
 
@@ -190,7 +190,7 @@ void print_tree(Node * root){
 void print_tree(BSTNode * root){
 	// this uses breath first algorithm of level order traversal
 	// Time Complexity : O(n) n = no . of nodes
-	// Space Complexity : O(1) best  ; O(n) : worst / avg 
+	// Space Complexity : O(1) best  ; O(n) : worst / avg
 	queue<BSTNode *> q;
 	if(!root) return;
 	q.IN(root);
@@ -281,8 +281,8 @@ Node * delete_node(Node * root , int target) {
 	else if(target < root->data) root->left = delete_node(root->left , target);
 	else if(target > root->data) root->right = delete_node(root->right , target);
 	else {
-		// we found the node 
-		// CASE 1 : When the node to delete is a leaf node 
+		// we found the node
+		// CASE 1 : When the node to delete is a leaf node
 		if(!(root->right && root->left)){
 			delete root ; // This causes the root to be a dangling pointer
 			root = NULL ; // fixing it !
@@ -322,8 +322,8 @@ BSTNode * delete_node(BSTNode * root , int target) {
 	else if(target < root->data) root->link.first = delete_node(root->link.first , target);
 	else if(target > root->data) root->link.second = delete_node(root->link.second , target);
 	else {
-		// we found the node 
-		// CASE 1 : When the node to delete is a leaf node 
+		// we found the node
+		// CASE 1 : When the node to delete is a leaf node
 		if(!(root->link.second && root->link.first)){
 			delete root ; // This causes the root to be a dangling pointer
 			root = NULL ; // fixing it !
@@ -353,7 +353,7 @@ BSTNode * delete_node(BSTNode * root , int target) {
 	return root ;
 }
 
-// Notes to refer: 
+// Notes to refer:
 
 
 //-------------------------------------------------------
@@ -361,7 +361,7 @@ BSTNode * delete_node(BSTNode * root , int target) {
 
 	// TREE DATA STRUCTURE
 	// a tree is a non-linear Data Structure based on hierarchy
-	// a tree is composed of nodes 
+	// a tree is composed of nodes
 	// and each node is ade up of the data component and may or may not contain one one or more than one node below it called children
 	// the topmost node is called the root
 	// a parent and its children are connected throught links
@@ -372,13 +372,13 @@ BSTNode * delete_node(BSTNode * root , int target) {
 	// The recursive structure looks like
 	/*				🌳--- > root
 					/|  |
-				   / |  | 
+				   / |  |
 				  /  |  |
 				 /   |  |
 			...	🪴  🪴  🪴 .... subtrees
 				T1  T2  T3
 
-	*/ 
+	*/
 
 	// In a tree with n nodes there are (n-1) edges or links (since in a valid tree there is only one incoming edge or link except for the root node i.e. n - 1)
 
@@ -389,58 +389,58 @@ BSTNode * delete_node(BSTNode * root , int target) {
 	// Height of the tree is the height of the root node
 
 	// In a Binary Tree a node can have at most 2 children
-	/* Applications of Tree DS:  
+	/* Applications of Tree DS:
 		1. Storing natural Hierarchical data Eg: The File System in OS
 		2. Organizing Data: for quick searching , insertion , and deletion. Eg: BST provides log(n) time for searching
 		3. Used in Network routing algorithms
 		4. Trie Data Structure
 	*/
 
-	// A strict Binary Tree contains nodes that have either 2 or 0 children. 
-	// A Binary Tree is called a Complete Binary Tree po Perfect Binary Tree if all levels except possibly the last are completely filled 
+	// A strict Binary Tree contains nodes that have either 2 or 0 children.
+	// A Binary Tree is called a Complete Binary Tree po Perfect Binary Tree if all levels except possibly the last are completely filled
 	// Max Number of nodes at level i = 2^i
 	// Levels start from 0 : L-0 , L-1, l-2 ..
 	/*
 		Max Number of nodes in a Binary Tree with height h = 2^0 + 2^1 + 2^2 + 2^3 + ..... 2^h
-		= 2^(h+1) - 1 
+		= 2^(h+1) - 1
 		= 2^(number of levels) - 1
 	*/
 
-	
+
 	// 	Given number of nodes find the height of a perfect binary tree with the same number of nodes:
-	// 	Sol: 
-	// 		if n = number of nodes and h = height of the tree , 
-	// 			we know , 
+	// 	Sol:
+	// 		if n = number of nodes and h = height of the tree ,
+	// 			we know ,
 
 	// 				=> n = 2^(h+1) - 1
 	// 				=> (n+1) = 2^(h+1)
 	// 				taking log both sides:
-	// 				=> log(n+1) = h+1 
+	// 				=> log(n+1) = h+1
 	// 				NOTE: here log(x) = log(x) / log(2) or log with base 2
 	// 				=>h = log(n+1) - 1 = height of the tree
-		
+
 	// 	Also Height of a complete Binary Tree = floor(log(n)) where n is the number of nodes and log is log with base 2
 
 	// 		=> h = floor(log(n))
 
 	// 	Minimum height of a tree with n nodes is one which is as densly packed as possible or a Strict Binary Tree
 
-	// 	Therefore , minimum height of a tree with n nodes is 
+	// 	Therefore , minimum height of a tree with n nodes is
 	// 		h = floor(log(n+1))
 	// 		and maximum height possible is (n+1)
 
 	// Time Complexity for Operation is O(h) where h is the height of the tree
 	// Therefore for a strict binary tree is O(log(n)) and for a tree with (n+1) height iits O(n).
-	// Hence a Sttrict Binary Tree offers a better time complexity 
+	// Hence a Sttrict Binary Tree offers a better time complexity
 
-	// Balanced Binary Tree: Difference between height of left and right subtree for every node is not more than 1 
-	// 	diff = | h(left) - h(right) |  
+	// Balanced Binary Tree: Difference between height of left and right subtree for every node is not more than 1
+	// 	diff = | h(left) - h(right) |
 
 	// Height of an empty tree = -1
 	// Height of a tree with 1 node = 0
 	// ----------------------------------------------------------
 	// ----------------------------------------------------------
-	
+
 	// Binary Search Tree : Offers quick search and quick update
  // 	Can be implemented using arrays or linked lists
 
@@ -460,7 +460,7 @@ BSTNode * delete_node(BSTNode * root , int target) {
  // 		Insert: O(log(n))
  // 		Search: O(log(n))
  // 		Delete: O(log(n))
- // 		In worst case cost of all the operations is O(n) 
+ // 		In worst case cost of all the operations is O(n)
  // 		This worst case condidition can be avoided by making sure that the tree is always balanced.
 
  // 	What is a Binary Search Tree ?
@@ -474,14 +474,14 @@ BSTNode * delete_node(BSTNode * root , int target) {
 		// 	    🪴              🪴 <----- BSTs
 	// 	Left Subtree      Right Subtree
 	//  (lesser or equal)      (greater)
- 	
+
  /*
 	Tree Traversal: process of visiting each node in the tree exactly once in some order
 
 	Visit: Reading / Processing data in a node
 
 	Tree Traversal Algorithms can be classified into two categories:
-		1. Breath First : Level Order Traversal 
+		1. Breath First : Level Order Traversal
 		2. Depth First : Preorder : root -> left subtree -> right subtree
 						 Inorder: left -> root -> right
 						 PostOrder: left -> right -> root
@@ -570,7 +570,7 @@ void Run() {
 	isBST(root_bst) ? cout << "True" : cout << "False" ;
 	cout << "\n\n";
 	cout << "Deleting Node from the 1st Tree with value 20 : \n";
-	root = delete_node(root , 20) ; 
+	root = delete_node(root , 20) ;
 	cout << "\nPrinting the tree: \n" ;
 	print_tree(root) ;
 	cout << "\n\nDeleting 19 from the second tree:\n" ;
@@ -580,7 +580,3 @@ void Run() {
 
 	return ;
 }
-
-
-
-
