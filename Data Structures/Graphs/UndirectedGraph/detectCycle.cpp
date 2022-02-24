@@ -10,8 +10,12 @@ int main() {
 
     UndirectedGraph g2(6);
     g2.addEdge(1, 0);
-    g2.addEdge(0, 2);
+    g2.addEdge(1, 2);
     g2.addEdge(1, 3);
+    g2.addEdge(2, 3);
+    g2.addEdge(2, 4);
+    g2.addEdge(4, 5);
+
 
     g1.detectCycle() ? cout << "graph1 has cycle " << endl : cout << "graph1 dosen't have a cycle" << endl;
     g2.detectCycle() ? cout << "graph2 has cycle " << endl : cout << "graph2 dosen't have a cycle" << endl;

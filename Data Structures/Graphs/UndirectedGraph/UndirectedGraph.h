@@ -181,28 +181,27 @@ public:
         }
     }
 
-    bool detectCycle() {
-        for (int i = 0; i < this->capacity; i++) {
-            unordered_set<int> visited;
-            queue<int> toProcess;
-            if (visited.find(i) == visited.end()) {
-                visited.insert(i);
-                toProcess.push(i);
-            }
-
-            while (!toProcess.empty()) {
-                int current = toProcess.front();
-                toProcess.pop();
-                for (int x : this->adj[current]) {
-                    if (visited.find(x) == visited.end()) {
-                        visited.insert(x);
-                        toProcess.push(x);
-                    }
-                    else return true;
-                }
+    bool detectCycleUtil(int current , int parent , unordered_set<int> & visited){
+        visited.insert(current) ;
+        bool ans = false ; 
+        for(int x : this->adj[current]){
+            if(x != parent){
+                if(visited.find(x) == visited.end()) ans = ans || detectCycleUtil(x , current , visited) ; 
+                else return true ;
+                if(ans) return ans ; // optimization once we find a true case we dont evaluate for other possible cases and return true
             }
         }
-        return false;
+        return ans ;
+    }
+
+    bool detectCycle(){
+        unordered_set<int> visited ;
+        bool ans = false ;
+        for(int i = 0 ; i < this->capacity ; i++){
+            if(visited.find(i) == visited.end()) ans = ans || detectCycleUtil(i , -1 , visited) ; // parent of a root node is -1 i.e. Not Present -> for each island in a graph
+            if(ans) return ans ; // optimization once we find a true case we dont evaluate for other possible cases and return true
+        }
+        return ans ;
     }
 
 };
