@@ -88,4 +88,73 @@ class DirectedGraph{
         return ans ;
     }
 
+    std::vector<int> calInDegree(){
+        std::vector<int> indegree(this->capacity , 0) ;
+        std::unordered_set<int> visited ;
+        std::queue<int> toProcess ;
+        for(int i = 0 ; i < this->capacity ; i++){
+            if(visited.find(i) == visited.end()){
+                visited.insert(i) ;
+                toProcess.push(i) ;
+            }
+            while(!toProcess.empty()){
+                int current = toProcess.front() ;
+                toProcess.pop() ;
+                for(int x : this->adj[current]){
+                    if(visited.find(x) == visited.end()){
+                        visited.insert(x) ;
+                        toProcess.push(x) ;
+                    }
+                    ++indegree[x] ; 
+                }
+            }
+        }
+        return indegree ;
+    }
+
+    // BFS Based
+    std::vector<int> topologicalSort(){ // based on number of dependencies
+        if(this->detectCycle()) throw std::logic_error("GIVEN GRAPH IS NOT A DAG ABORT !") ; 
+        std::vector<int> indegree = this->calInDegree() ;
+        std::queue<int> vertices_with_zero_indegree ;
+        std::unordered_set<int> visited ;
+        std::vector<int> res(this->capacity , -1) ;
+        int count = 0 ;
+        // initially add all the vertices which dont have any dependencies since they are the one to be first compiled / processed
+        // i.e. vertices with indegree == 0
+        for(int i = 0 ; i < this->capacity ; i++){
+            if(indegree[i] == 0) vertices_with_zero_indegree.push(i) ;
+        }
+        while(!vertices_with_zero_indegree.empty()){
+            int current = vertices_with_zero_indegree.front() ;
+            vertices_with_zero_indegree.pop() ;
+            res[count++] = current ;
+            for(int x : this->adj[current]){
+                --indegree[x] ; // since the parent vertex is processed all the vertices that are dependent on it can reduce their number of dependencies by 1
+                if(indegree[x] == 0) vertices_with_zero_indegree.push(x) ; //  if during processing we find a vertex whosse current number of dependency == 0 i.e. it dosen't depend on any othe rvertex for it processing -> it means that it can br processed now and hence we can enqueue it
+                // NOTE THAT THERE CAN BE MORE THAN ONE WAY FOR TOPOLOGICAL SORT FOR A GIVEN DAG
+            } 
+        }
+        return res ;
+    }
+
+    bool detectCycleKakns(){ // cycle detection in Directed Graph Using Kahns Algo
+        std::vector<int> indegree = this->calInDegree() ;
+        std::queue<int> vertices_with_zero_indegree ;
+        for(int i = 0 ; i < this->capacity ; i++){
+            if(indegree[i] == 0) vertices_with_zero_indegree.push(i) ;
+        }
+        int count = 0 ;
+        while(!vertices_with_zero_indegree.empty()){
+            int current = vertices_with_zero_indegree.front() ;
+            vertices_with_zero_indegree.pop() ;
+            for(int x : this->adj[current]){
+                --indegree[x] ;
+                if(indegree[x] == 0) vertices_with_zero_indegree.push(x) ;
+            }
+            ++count ;
+        }
+        return count != this->capacity ;
+    }
+
 } ;
