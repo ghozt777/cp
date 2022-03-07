@@ -1,0 +1,11 @@
+Binary Heap : 
+
+It is a Complete Bianry Tree or CBT , More about CBT -> https://www.geeksforgeeks.org/binary-tree-set-3-types-of-binary-tree/
+
+Formulas : 
+
+In array format of a CBT : 
+Left Child of node at index (i) = 2 * i + 1 
+Right Child of node at index (i) = 2 * i + 2
+
+Parent Node at index (i) = (i - 1) / 2 ;
