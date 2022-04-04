@@ -1,5 +1,7 @@
 // link : https://leetcode.com/problems/most-frequent-subtree-sum/
 
+// APPROACH : calculate sum of all the possible subtrees and we can do this in O(n) using bottom up approach or preorder dfs travesal
+
 /**
  * Definition for a binary tree node.
  * struct TreeNode {
