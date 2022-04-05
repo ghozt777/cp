@@ -1,8 +1,3 @@
-#!/bin/bash
-echo "Enter Question Name: "
-read file
-mkdir $file && cd $file
-template='
 #include<bits/stdc++.h>
 
 using namespace std;
@@ -20,6 +15,12 @@ typedef map<string , int> msi;
 #define f(n) for(int i = 0 ; i < n ; i++)
 #define fr(itr, n) for(int itr = 0 ; itr < n ; itr++)
 
+bool isPrime(int n){
+	int root = (int)(sqrt(n)) ;
+	for(int i = 2 ; i <= root ; i++) if(n % i == 0) return false ;
+	return true ;
+}
+
 
 void Run();
 void printArray(int[] , int) ;
@@ -36,12 +37,22 @@ int main(){
 
 void Run() {
 	// run your code here
-
+	int n , m ;
+	cin >> n >> m ;
+	if(!isPrime(m)){
+		cout << "NO" << endl ;
+		return ;
+	}
+	int start = n + 1 ;
+	while(!isPrime(start)){
+		++start ;
+		if(start == m) break ;
+	}
+	m == start ? cout << "YES" : cout << "NO" ;
+	cout << endl ;
 
 	return ;
 }
-
-
 
 
 
@@ -55,8 +66,4 @@ void printArray(int arr[] , int n){
 	cout << arr[n-1] << "]" ;
 }
 
-'
-touch main.cpp
-touch input.txt
-touch output.txt
-echo "${template}" > main.cpp
+
