@@ -31,10 +31,17 @@ int main(){
 }
 
 void Run() {
-	// run your code here
-
-
-	return ;
+	// run your code here	
+	int64_t n , k ;
+	cin >> n >> k ;
+	int64_t cO = 0 ;
+	cO = (n + 1) / 2 ;
+	if(k <= cO) cout << 1 + (k - 1) * 2 << endl ;
+	else {
+		k -= cO ;
+		cout << 2 + (k - 1) * 2 << endl ;
+	}
+	return ; 
 }
 
 

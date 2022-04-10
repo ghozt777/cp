@@ -18,7 +18,7 @@ typedef map<string , int> msi;
 
 
 void Run();
-
+void printArray(int[] , int) ;
 
 int main(){
 
@@ -32,20 +32,31 @@ int main(){
 
 void Run() {
 	// run your code here
-	string str;
-	cin >> str ;
-	for(int i = 0; i < str.length() ; ){
-		char start = str[i] ;
-		int j = i + 1 ;
-		while(j < str.length() && str[j] == start) ++j ;
-		if(j - i >= 7){
-			cout << "YES" << endl ;
-			return ;
-		}
-		i = j ;
+	int x = 0 ;
+	int n ; 
+	cin >> n ;
+	for(int i = 0 ; i < n ; i++){
+		string ip ;
+		cin >> ip ;
+		if(ip[0] == '+' || ip[2] == '+') ++x ;
+		else --x ;
 	}
-	cout << "NO" << endl ;
+	cout << x << endl ;
 	return ;
+}
+
+
+
+
+
+
+
+void printArray(int arr[] , int n){
+	if(n==0){cout << "[]"; return ;}
+	if(n==1){cout << "[" << arr[0] << "]"; return ;}
+	cout << "[" << arr[0] <<", " ;
+	for(int i = 1 ; i < n - 1 ; i++) cout << arr[i] << ", " ; 
+	cout << arr[n-1] << "]" ;
 }
 
 

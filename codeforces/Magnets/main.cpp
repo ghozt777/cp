@@ -32,7 +32,21 @@ int main(){
 
 void Run() {
 	// run your code here
-
+	int n ;
+	cin >> n ;  
+	char last = '\0' ;
+	int res = 1 ;
+	for(int i = 0 ; i < n ; i++){
+		string ip ;
+		cin >> ip ;
+		if(last != '\0'){
+			int a = last - '0' ;
+			int b = ip[0] - '0' ;
+			if(!(a ^ b)) ++res ;
+		}
+		last = ip[1] ;
+	}
+	cout << res << endl ;
 
 	return ;
 }

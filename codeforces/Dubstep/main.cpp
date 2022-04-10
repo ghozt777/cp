@@ -32,8 +32,23 @@ int main(){
 
 void Run() {
 	// run your code here
+	string str ;
+	cin >> str ;
+	string res = "" ;
+	for(int i = 0 ; i < str.length() ; ){
+		if(i + 2 < str.length() && str.substr(i,3) == "WUB") i += 3 ;
+		else{
+			int j = i ;
+			while(j < str.length()){
+				if(j + 2 < str.length() && str.substr(j , 3) == "WUB") break ;
+				else ++j ;
+			}
+			res += str.substr(i , j - i) + " " ;
+			i = j ;	
+		}
 
-
+	}
+	cout << res << " " ;
 	return ;
 }
 

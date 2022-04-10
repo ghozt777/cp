@@ -17,6 +17,25 @@ typedef map<string , int> msi;
 #define fr(itr, n) for(int itr = 0 ; itr < n ; itr++)
 
 
+int maxFreq(int * arr , int n){
+	sort(arr , arr + n) ;
+	int res = 1 ;
+	int curr = 1 ;
+	int e = arr[0] ;
+	for(int i = 1 ; i < n ; i++){
+		if(arr[i] == e){
+			++curr ;
+			res = max(res , curr) ;
+		}
+		else{
+			curr = 1 ;
+			e = arr[i] ;
+		}
+	}
+	return res ;
+}
+
+
 void Run();
 void printArray(int[] , int) ;
 
@@ -30,9 +49,30 @@ int main(){
     return 0;
 }
 
+
 void Run() {
 	// run your code here
-
+	int t ;
+	cin >> t ;
+	while(t--){
+		int n ;
+		cin >> n ;
+		int arr[n] ;
+		int res = 0 ;
+		for(int i = 0; i < n ; i++) cin >> arr[i] ;
+		int count = maxFreq(arr , n)  ;
+		if(count < n){
+			while(count < n){
+				++res ;
+				count *= 2 ;
+				if(count >= n) break ; 
+				res += count / 2 ;
+			}
+			res += n - count / 2 ;
+			cout << res << '\n' ;
+		}
+		else cout << 0 << '\n' ;
+	}
 
 	return ;
 }
