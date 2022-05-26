@@ -1,15 +1,15 @@
 /*
 	Author: ghozt777
 	codeforces: https://codeforces.com/profile/ghozt777
-        Time: Wed May 25 12:53:04 IST 2022
-	Link to problem / contest : https://codeforces.com/problemset/problem/285/C
+        Time: Thu May 26 11:12:41 IST 2022
+	Link to problem / contest : https://codeforces.com/contest/1681/problem/B
 */
 
 
 #include<bits/stdc++.h>
 using namespace std ;
 
-using ll = int64_t ;
+using ll = long long ;
 using vi = vector<int> ;
 using vvi = vector<vi> ;
 using pi = pair<int , int> ;
@@ -47,27 +47,21 @@ void dfs(int s){
 
 void solve(){
 	// to execute for each test case
-	ll n ;
+	int n ;
 	cin >> n ;
-	vector<ll> arr ; // unallocated numbers
-	vector<ll> nt ; // not taken numbers
-	unordered_set<ll> t ; // taken numbers
-	for(ll i = 1 ; i <= n ; i++){
-		ll a ;
-		cin >> a ;
-		if((a <= 0 || a > n) || t.find(a) != t.end()) arr.PB(a) ;
-		else t.insert(a) ;
-	}
-	for(ll i = 1 ; i<= n ; i++) if(t.find(i) == t.end()) nt.PB(i) ;
-	sort(arr.begin(),arr.end()) ;
-	ll res = (ll)0 ;
-	ll start , end ;
-	start = 0 ;
-	end = nt.size() - 1 ;
+	vi a(n) ;
+	for(auto & x : a) cin >> x ;
+
+	int m  ;
+	cin >> m ;
 	int curr = 0 ;
-	int c = 0 ;
-	for(ll i = 0 ; i < arr.size() ; i++) res += abs(arr[i] - nt[i]) ;
-	cout << res << endl ;
+	for(int i = 0 ; i < m ; i++){
+		int b ;
+		cin >> b ;
+		curr += b ;
+		if(curr >= n) curr -= n ;
+	}
+	cout << a[curr] << endl ;
 }
 
 int main(){
@@ -76,7 +70,9 @@ int main(){
 	ios_base::sync_with_stdio(false) ;
 	cin.tie(NULL) ;
 
-	solve() ;
+	int t ;
+	cin >> t ;
+	while(t--) solve() ;
 
 	return EXIT_SUCCESS ;
 }
