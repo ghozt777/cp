@@ -1,8 +1,8 @@
 /*
 	Author: ghozt777
 	codeforces: https://codeforces.com/profile/ghozt777
-    Time: Thu May 26 13:25:46 IST 2022
-	Link to problem / contest : https://codeforces.com/contest/1681/problem/D
+    Time: Thu May 26 20:03:34 IST 2022
+	Link to problem / contest : https://codeforces.com/contest/1682/problem/C
 */
 
 
@@ -33,6 +33,8 @@ template<typename T, typename... Args>
 void err(istream_iterator<string> it, T a, Args... args) {cerr << *it << " = " << a << endl;err(++it, args...);}
 // requires c++17
 template<typename... Args>void read(Args&... args){((cin >> args), ...);}
+template<typename T>void read(vector<T> &arr){for(auto & a : arr) cin >> a ;}
+template<typename T>void write(vector<T> &arr){for(auto & a : arr) cout << a << " " ;}
 const ll MOD = 10e9+7 ;
 
 
@@ -41,12 +43,43 @@ vector<bool> vis ;
 void init(int v){adj.clear() ;vis.clear() ;adj.resize(v) ;vis.resize(v , false) ;}
 void dfs(int s){vis[s] = true ;for(auto x : adj[s]) if(!vis[x]) dfs(x) ;}
 
+ll LIS(vi & arr){
+	int res = 1 ;
+	const int n = arr.size() ;
+	int curr = 1 ;
+	for(int i = 0 ; i < n - 1 ; i++){
+		if(arr[i + 1] > arr[i]) ++curr , res = max(curr , res) ;
+		else curr = 1 ;
+	}
+	return res ;
+}
+
+void optimize(vi & a){
+	const int n = a.size() ;
+	for(int i = 0 ; i < n / 2 - 1 ; i++){
+		if(a[i] == a[i + 1]){
+			int j = n / 2 - 1;
+			while(j < n && a[j] != a[j + 1]) ++j ;
+			if(j == n) swap(a[i + 1] , a[n / 2 + i]) ;
+			else swap(a[i + 1] , a[j]) ;
+		}
+	}	
+}
 
 void solve(){
 	// to execute for each test case
-	ll n , x ;
-	read(n,x);
-	
+	int n ;
+	cin >> n ;
+	vi a(n) ;
+	read(a) ;
+	sort(a.begin() , a.end()) ;
+	optimize(a) ;
+	reverse(a.begin() + n / 2 - 1 , a.end()) ;
+	ll r1 = LIS(a) ;
+	reverse(a.begin() , a.end()) ;
+	optimize(a) ;
+	ll r2 = LIS(a) ;
+	cout << min(r1 , r2) << endl ;
 
 }
 
@@ -56,7 +89,8 @@ int main(){
 	ios_base::sync_with_stdio(false) ;
 	cin.tie(NULL) ;
 
-	int t = 1;
+	int t ;
+	cin >> t ;
 	while(t--) solve() ;
 
 	return EXIT_SUCCESS ;

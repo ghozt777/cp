@@ -1,8 +1,8 @@
 /*
 	Author: ghozt777
 	codeforces: https://codeforces.com/profile/ghozt777
-    Time: Thu May 26 13:25:46 IST 2022
-	Link to problem / contest : https://codeforces.com/contest/1681/problem/D
+    Time: Fri Jun  3 15:31:05 IST 2022
+	Link to problem / contest : https://cses.fi/problemset/task/1192
 */
 
 
@@ -33,6 +33,8 @@ template<typename T, typename... Args>
 void err(istream_iterator<string> it, T a, Args... args) {cerr << *it << " = " << a << endl;err(++it, args...);}
 // requires c++17
 template<typename... Args>void read(Args&... args){((cin >> args), ...);}
+template<typename T>void read(vector<T> &arr){for(auto & a : arr) cin >> a ;}
+template<typename T>void write(vector<T> &arr){for(auto & a : arr) cout << a << " " ;}
 const ll MOD = 10e9+7 ;
 
 
@@ -41,13 +43,34 @@ vector<bool> vis ;
 void init(int v){adj.clear() ;vis.clear() ;adj.resize(v) ;vis.resize(v , false) ;}
 void dfs(int s){vis[s] = true ;for(auto x : adj[s]) if(!vis[x]) dfs(x) ;}
 
+void dfs(vector<vector<char>> & grid , int i , int j){
+	if(i < 0 || j < 0 || i >= grid.size() || j >= grid[0].size() || grid[i][j] == '#') return ;
+	grid[i][j] = '#' ;
+	dfs(grid , i - 1 , j) ;
+	dfs(grid , i + 1 , j) ;
+	dfs(grid , i , j - 1) ;
+	dfs(grid , i , j + 1) ;
+}
+
 
 void solve(){
 	// to execute for each test case
-	ll n , x ;
-	read(n,x);
-	
-
+	int n , m ;
+	cin >> n >> m  ;
+	vector<vector<char>> grid(n , vector<char>(m)) ;
+	for(int i = 0 ; i < n ; i++) 
+		for(int j = 0 ; j < m ; j++)
+			cin >> grid[i][j] ;
+	int res = 0 ;
+	for(int i = 0 ; i < n ; i++){
+		for(int j = 0 ; j < m ; j++){
+			if(grid[i][j] != '#'){
+				++res ;
+				dfs(grid , i , j) ;
+			}
+		}
+	}
+	cout << res << endl ;
 }
 
 int main(){
@@ -55,8 +78,9 @@ int main(){
 	// please make sure to flush the o/p stream using endl or cout.flush()
 	ios_base::sync_with_stdio(false) ;
 	cin.tie(NULL) ;
-
-	int t = 1;
+    cout << std::fixed;
+    cout << std::setprecision(12);
+	int t = 1 ;
 	while(t--) solve() ;
 
 	return EXIT_SUCCESS ;
