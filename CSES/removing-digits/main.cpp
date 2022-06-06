@@ -1,8 +1,8 @@
 /*
 	Author: ghozt777
 	codeforces: https://codeforces.com/profile/ghozt777
-    Time: Sat Jun  4 16:12:42 IST 2022
-	Link to problem / contest : https://cses.fi/problemset/task/1668
+    Time: Sun Jun  5 15:05:50 IST 2022
+	Link to problem / contest : https://cses.fi/problemset/task/1637
 */
 
 
@@ -39,76 +39,31 @@ const ll MOD = 10e9+7 ;
 
 
 vvi adj ;
-vi in ;
 vector<bool> vis ;
 void init(int v){adj.clear() ;vis.clear() ;adj.resize(v) ;vis.resize(v , false) ;}
 void dfs(int s){vis[s] = true ;for(auto x : adj[s]) if(!vis[x]) dfs(x) ;}
-vector<int> color ;
 
-void addEdge(int u , int v){
-    adj[u].PB(v) ;
-    adj[v].PB(u) ;
-}
+const int nxa = 1000001 ;
 
-bool isBipartite(int s , int p){
-    vis[s] = true ;
-    for(int x : adj[s]){
-        if(x != p){
-            if(color[x] == 0){
-//                color[s] == 1 ? color[x] = 2 : color[x] = 1 ;
-                color[x] = color[s] ^ 3 ;
-                if(!vis[x] && !isBipartite(x , s)) return false ;
-            }
-            else{
-                if(color[x] == color[s]) return false ; // contradiction
-            }
-        }
-    }
-    return true ;
-}
+vi dp(nxa , -1) ;
 
-bool isBipartite(){
-    const int v = adj.size() ;
-    for(int i = 0 ; i < v ; i++){
-        if(!vis[i]){
-            color[i] = 1 ;
-            if(!isBipartite(i , -1)) return false ;
-        }
-    }
-    return true ;
+int bruteforce(int n){
+	if(n == 0) return 0 ;
+	if(dp[n] != -1) return dp[n] ; 
+	int res = INT_MAX ;
+	string s = to_string(n) ;
+	for(char x : s){
+		int k = x - '0' ;
+		if (k != 0) res = min(res , bruteforce(n - k)) ;
+	}
+	return dp[n] = res + 1 ;
 }
 
 void solve(){
 	// to execute for each test case
-    
-    /*
-        APPRROACH : 
-        
-        This is an example of 2-color problem or bipartite graph problem 
-        Read More : https://www.geeksforgeeks.org/bipartite-graph/
-                    https://algodaily.com/challenges/the-two-coloring-graph-problem
-    */
-    
-	int n , m ;
-	cin >> n >> m ;
-	adj.resize(n) ;
-	vis.resize(n , false) ;
-	in.resize(n , 0) ;
-    color.resize(n , 0);
-
-	for(int i = 0 ; i < m ; i++){
-		int a , b ;
-		cin >> a >> b ;
-		addEdge(a - 1 , b - 1) ;
-	}
-    
-    if(isBipartite()){
-        for(int i = 0 ; i < n ; i++) cout << color[i] << " " ;
-        cout << "\n" ;
-    } 
-    else{
-        cout << "IMPOSSIBLE\n" ;
-    }
+	int n ;
+	cin >> n ;
+	cout << bruteforce(n) << endl ;
 }
 
 int main(){

@@ -1,8 +1,8 @@
 /*
 	Author: ghozt777
 	codeforces: https://codeforces.com/profile/ghozt777
-    Time: Sat Jun  4 16:12:42 IST 2022
-	Link to problem / contest : https://cses.fi/problemset/task/1668
+    Time: Sun Jun  5 15:18:27 IST 2022
+	Link to problem / contest : https://cses.fi/problemset/task/1638
 */
 
 
@@ -35,80 +35,57 @@ void err(istream_iterator<string> it, T a, Args... args) {cerr << *it << " = " <
 template<typename... Args>void read(Args&... args){((cin >> args), ...);}
 template<typename T>void read(vector<T> &arr){for(auto & a : arr) cin >> a ;}
 template<typename T>void write(vector<T> &arr){for(auto & a : arr) cout << a << " " ;}
-const ll MOD = 10e9+7 ;
+const ll MOD = pow(10,9)+7 ;
 
 
 vvi adj ;
-vi in ;
 vector<bool> vis ;
 void init(int v){adj.clear() ;vis.clear() ;adj.resize(v) ;vis.resize(v , false) ;}
 void dfs(int s){vis[s] = true ;for(auto x : adj[s]) if(!vis[x]) dfs(x) ;}
-vector<int> color ;
 
-void addEdge(int u , int v){
-    adj[u].PB(v) ;
-    adj[v].PB(u) ;
+
+// bruteforce solution
+void dfs(vector<vector<char>> & grid , int i , int j , int & res){
+	const int n = grid.size() ;
+	if(i >= n || j >= n || grid[i][j] == '*') return ;
+	if(i == n - 1 && j == n - 1){
+		++res ;
+		return ; 
+	}
+	grid[i][j] = '*' ;
+	
+	dfs(grid , i + 1 , j , res) ;
+	dfs(grid , i , j + 1 , res) ;
+	
+	grid[i][j] = '.' ;
 }
 
-bool isBipartite(int s , int p){
-    vis[s] = true ;
-    for(int x : adj[s]){
-        if(x != p){
-            if(color[x] == 0){
-//                color[s] == 1 ? color[x] = 2 : color[x] = 1 ;
-                color[x] = color[s] ^ 3 ;
-                if(!vis[x] && !isBipartite(x , s)) return false ;
-            }
-            else{
-                if(color[x] == color[s]) return false ; // contradiction
-            }
-        }
-    }
-    return true ;
-}
 
-bool isBipartite(){
-    const int v = adj.size() ;
-    for(int i = 0 ; i < v ; i++){
-        if(!vis[i]){
-            color[i] = 1 ;
-            if(!isBipartite(i , -1)) return false ;
-        }
-    }
-    return true ;
+ll _dp(vector<vector<char>> & grid){
+	if(grid[0][0] == '*') return 0 ;
+	const int n = grid.size() ;
+	vector<vector<ll>> dp(n + 1 , vector<ll>(n + 1 , 0)) ;
+	for(int i = 1 ; i <= n ; i++){
+		for(int j = 1 ; j <= n ; j++){
+			if(i == 1 && j == 1) dp[i][j] = 1 ;
+			else if(grid[i - 1][j - 1] == '*') dp[i][j] = 0 ;
+			else dp[i][j] = dp[i - 1][j] % MOD + dp[i][j - 1] % MOD ;
+		}
+	}
+	return dp[n][n] % MOD ;
 }
 
 void solve(){
 	// to execute for each test case
-    
-    /*
-        APPRROACH : 
-        
-        This is an example of 2-color problem or bipartite graph problem 
-        Read More : https://www.geeksforgeeks.org/bipartite-graph/
-                    https://algodaily.com/challenges/the-two-coloring-graph-problem
-    */
-    
-	int n , m ;
-	cin >> n >> m ;
-	adj.resize(n) ;
-	vis.resize(n , false) ;
-	in.resize(n , 0) ;
-    color.resize(n , 0);
-
-	for(int i = 0 ; i < m ; i++){
-		int a , b ;
-		cin >> a >> b ;
-		addEdge(a - 1 , b - 1) ;
-	}
-    
-    if(isBipartite()){
-        for(int i = 0 ; i < n ; i++) cout << color[i] << " " ;
-        cout << "\n" ;
-    } 
-    else{
-        cout << "IMPOSSIBLE\n" ;
-    }
+	int n ;
+	cin >> n ;
+	vector<vector<char>> grid(n , vector<char>(n)) ;
+	for(int i = 0 ; i < n ; i++)
+		for(int j = 0 ; j < n ; j++)
+			cin >> grid[i][j] ;
+	// int res = 0 ;	dfs(grid , 0 , 0 , res) ;
+	ll res = _dp(grid) ;
+	cout << res << endl ;
 }
 
 int main(){

@@ -1,8 +1,8 @@
 /*
 	Author: ghozt777
 	codeforces: https://codeforces.com/profile/ghozt777
-    Time: Sat Jun  4 16:12:42 IST 2022
-	Link to problem / contest : https://cses.fi/problemset/task/1668
+    Time: Sun Jun  5 14:01:13 IST 2022
+	Link to problem / contest : https://cses.fi/problemset/task/1636
 */
 
 
@@ -35,80 +35,37 @@ void err(istream_iterator<string> it, T a, Args... args) {cerr << *it << " = " <
 template<typename... Args>void read(Args&... args){((cin >> args), ...);}
 template<typename T>void read(vector<T> &arr){for(auto & a : arr) cin >> a ;}
 template<typename T>void write(vector<T> &arr){for(auto & a : arr) cout << a << " " ;}
-const ll MOD = 10e9+7 ;
+const ll MOD = pow(10,9)+7 ;
 
 
 vvi adj ;
-vi in ;
 vector<bool> vis ;
 void init(int v){adj.clear() ;vis.clear() ;adj.resize(v) ;vis.resize(v , false) ;}
 void dfs(int s){vis[s] = true ;for(auto x : adj[s]) if(!vis[x]) dfs(x) ;}
-vector<int> color ;
 
-void addEdge(int u , int v){
-    adj[u].PB(v) ;
-    adj[v].PB(u) ;
+
+
+ll _dp(ll x , vector<ll> & coins){
+	vector<ll> dp(x + 1 , 0) ;
+	dp[0] = 1 ;
+	for(ll c : coins){
+		for(ll i = 0 ; i <= x ; i++){
+			if(i - c >= 0) dp[i] = dp[i - c] % MOD + dp[i] % MOD ;
+		}
+	}
+	return dp[x] % MOD ;
 }
 
-bool isBipartite(int s , int p){
-    vis[s] = true ;
-    for(int x : adj[s]){
-        if(x != p){
-            if(color[x] == 0){
-//                color[s] == 1 ? color[x] = 2 : color[x] = 1 ;
-                color[x] = color[s] ^ 3 ;
-                if(!vis[x] && !isBipartite(x , s)) return false ;
-            }
-            else{
-                if(color[x] == color[s]) return false ; // contradiction
-            }
-        }
-    }
-    return true ;
-}
 
-bool isBipartite(){
-    const int v = adj.size() ;
-    for(int i = 0 ; i < v ; i++){
-        if(!vis[i]){
-            color[i] = 1 ;
-            if(!isBipartite(i , -1)) return false ;
-        }
-    }
-    return true ;
-}
 
 void solve(){
 	// to execute for each test case
-    
-    /*
-        APPRROACH : 
-        
-        This is an example of 2-color problem or bipartite graph problem 
-        Read More : https://www.geeksforgeeks.org/bipartite-graph/
-                    https://algodaily.com/challenges/the-two-coloring-graph-problem
-    */
-    
-	int n , m ;
-	cin >> n >> m ;
-	adj.resize(n) ;
-	vis.resize(n , false) ;
-	in.resize(n , 0) ;
-    color.resize(n , 0);
-
-	for(int i = 0 ; i < m ; i++){
-		int a , b ;
-		cin >> a >> b ;
-		addEdge(a - 1 , b - 1) ;
-	}
-    
-    if(isBipartite()){
-        for(int i = 0 ; i < n ; i++) cout << color[i] << " " ;
-        cout << "\n" ;
-    } 
-    else{
-        cout << "IMPOSSIBLE\n" ;
-    }
+	ll n , x ;
+	cin >> n >> x ;
+	vector<ll> coins(n) ;
+	read(coins) ;
+	ll res = _dp(x , coins) ;
+	cout << res << endl ;
 }
 
 int main(){

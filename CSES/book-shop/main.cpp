@@ -1,8 +1,8 @@
 /*
 	Author: ghozt777
 	codeforces: https://codeforces.com/profile/ghozt777
-    Time: Sat Jun  4 16:12:42 IST 2022
-	Link to problem / contest : https://cses.fi/problemset/task/1668
+    Time: Sun Jun  5 16:26:32 IST 2022
+	Link to problem / contest : https://cses.fi/problemset/task/1158
 */
 
 
@@ -39,76 +39,42 @@ const ll MOD = 10e9+7 ;
 
 
 vvi adj ;
-vi in ;
 vector<bool> vis ;
 void init(int v){adj.clear() ;vis.clear() ;adj.resize(v) ;vis.resize(v , false) ;}
 void dfs(int s){vis[s] = true ;for(auto x : adj[s]) if(!vis[x]) dfs(x) ;}
-vector<int> color ;
 
-void addEdge(int u , int v){
-    adj[u].PB(v) ;
-    adj[v].PB(u) ;
+int bruteforce(int curr , int n , int left_money , vi & price , vi & pages){
+	if(n == 0) return curr ;
+	int res = INT_MIN ;
+	if(left_money >= price[n - 1]) res = max({ bruteforce(curr + pages[n - 1] , n - 1 , left_money - price[n - 1] , price , pages) , bruteforce(curr , n - 1 , left_money , price , pages) }) ;
+	else res = bruteforce(curr , n - 1 , left_money , price , pages) ;
+	return res ;
 }
 
-bool isBipartite(int s , int p){
-    vis[s] = true ;
-    for(int x : adj[s]){
-        if(x != p){
-            if(color[x] == 0){
-//                color[s] == 1 ? color[x] = 2 : color[x] = 1 ;
-                color[x] = color[s] ^ 3 ;
-                if(!vis[x] && !isBipartite(x , s)) return false ;
-            }
-            else{
-                if(color[x] == color[s]) return false ; // contradiction
-            }
-        }
-    }
-    return true ;
-}
-
-bool isBipartite(){
-    const int v = adj.size() ;
-    for(int i = 0 ; i < v ; i++){
-        if(!vis[i]){
-            color[i] = 1 ;
-            if(!isBipartite(i , -1)) return false ;
-        }
-    }
-    return true ;
+int _dp(int x , vi & prices , vi & pages){
+	const int n = prices.size() ;
+	// states : size_of_array , max_amount_of_money ;
+	vector<vector<int>> dp(n + 1 , vector<int>(x + 1 , 0)) ;
+	for(int i = 1 ; i <= n ; i++){
+		for(int j = 0 ; j <= x ; j++){
+			if(j >= prices[i - 1]) dp[i][j] = max(dp[i - 1][j] , pages[i - 1] + dp[i - 1][j - prices[i - 1]]) ;
+			else dp[i][j] = dp[i - 1][j] ; 
+		}
+	}
+	return dp[n][x] ;
 }
 
 void solve(){
 	// to execute for each test case
-    
-    /*
-        APPRROACH : 
-        
-        This is an example of 2-color problem or bipartite graph problem 
-        Read More : https://www.geeksforgeeks.org/bipartite-graph/
-                    https://algodaily.com/challenges/the-two-coloring-graph-problem
-    */
-    
-	int n , m ;
-	cin >> n >> m ;
-	adj.resize(n) ;
-	vis.resize(n , false) ;
-	in.resize(n , 0) ;
-    color.resize(n , 0);
-
-	for(int i = 0 ; i < m ; i++){
-		int a , b ;
-		cin >> a >> b ;
-		addEdge(a - 1 , b - 1) ;
-	}
-    
-    if(isBipartite()){
-        for(int i = 0 ; i < n ; i++) cout << color[i] << " " ;
-        cout << "\n" ;
-    } 
-    else{
-        cout << "IMPOSSIBLE\n" ;
-    }
+	int n , x ;
+	cin >> n >> x ;
+	vi price(n) ;
+	vi pages(n) ;
+	read(price) ;
+	read(pages) ;
+	// int res = bruteforce(0 , n , x , price , pages) ;
+	int res = _dp(x , price , pages) ;
+	cout << res << endl ;
 }
 
 int main(){

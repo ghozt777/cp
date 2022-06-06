@@ -1,8 +1,8 @@
 /*
 	Author: ghozt777
 	codeforces: https://codeforces.com/profile/ghozt777
-    Time: Sat Jun  4 16:12:42 IST 2022
-	Link to problem / contest : https://cses.fi/problemset/task/1668
+    Time: Sun Jun  5 17:22:51 IST 2022
+	Link to problem / contest : https://cses.fi/problemset/task/1074
 */
 
 
@@ -39,76 +39,32 @@ const ll MOD = 10e9+7 ;
 
 
 vvi adj ;
-vi in ;
 vector<bool> vis ;
 void init(int v){adj.clear() ;vis.clear() ;adj.resize(v) ;vis.resize(v , false) ;}
 void dfs(int s){vis[s] = true ;for(auto x : adj[s]) if(!vis[x]) dfs(x) ;}
-vector<int> color ;
 
-void addEdge(int u , int v){
-    adj[u].PB(v) ;
-    adj[v].PB(u) ;
-}
-
-bool isBipartite(int s , int p){
-    vis[s] = true ;
-    for(int x : adj[s]){
-        if(x != p){
-            if(color[x] == 0){
-//                color[s] == 1 ? color[x] = 2 : color[x] = 1 ;
-                color[x] = color[s] ^ 3 ;
-                if(!vis[x] && !isBipartite(x , s)) return false ;
-            }
-            else{
-                if(color[x] == color[s]) return false ; // contradiction
-            }
-        }
-    }
-    return true ;
-}
-
-bool isBipartite(){
-    const int v = adj.size() ;
-    for(int i = 0 ; i < v ; i++){
-        if(!vis[i]){
-            color[i] = 1 ;
-            if(!isBipartite(i , -1)) return false ;
-        }
-    }
-    return true ;
-}
 
 void solve(){
 	// to execute for each test case
-    
-    /*
-        APPRROACH : 
-        
-        This is an example of 2-color problem or bipartite graph problem 
-        Read More : https://www.geeksforgeeks.org/bipartite-graph/
-                    https://algodaily.com/challenges/the-two-coloring-graph-problem
-    */
-    
-	int n , m ;
-	cin >> n >> m ;
-	adj.resize(n) ;
-	vis.resize(n , false) ;
-	in.resize(n , 0) ;
-    color.resize(n , 0);
-
-	for(int i = 0 ; i < m ; i++){
-		int a , b ;
-		cin >> a >> b ;
-		addEdge(a - 1 , b - 1) ;
+	ll n ;
+	cin >> n ;
+	vector<ll> arr(n) ;
+	read(arr) ;
+	sort(arr.begin() , arr.end()) ;
+	if(n % 2 == 1){
+		ll x = arr[arr.size() / 2] ;
+		int res = 0 ;
+		for(ll a : arr) res += abs(x - a) ;
+		cout << res << endl ;
 	}
-    
-    if(isBipartite()){
-        for(int i = 0 ; i < n ; i++) cout << color[i] << " " ;
-        cout << "\n" ;
-    } 
-    else{
-        cout << "IMPOSSIBLE\n" ;
-    }
+	else{
+		ll x1 = arr[n / 2] ;
+		ll x2 = arr[n / 2 - 1] ;
+		ll res1 = 0 ;
+		ll res2 = 0 ;
+		for(int x : arr) res1 += abs(x - x1) , res2 += abs(x - x2) ;
+		cout << min(res1 , res2) << endl ;
+	}
 }
 
 int main(){
