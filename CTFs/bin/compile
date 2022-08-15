@@ -1,0 +1,16 @@
+# !/bin/bash
+function print_success(){
+    echo $'\e[1;32m'✅ Compilation Successful ✨$'\e[0m' ;
+}
+
+function print_faliure(){
+    echo $'\e[1;31m'❌ Compilation Falied 😟$'\e[0m' ;
+}
+
+
+echo "compiling $1 with c++17 ...."
+if g++ -std=c++17 -Wall -Wextra -Wshadow -D_GLIBCXX_ASSERTIONS -DDEBUG -ggdb3  -o $1{,.cpp}; then
+    print_success
+else  
+    print_faliure
+fi

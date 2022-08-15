@@ -1,0 +1,7 @@
+#!/bin/bash
+./$1 < input.txt > output.txt
+echo "i/p:"
+cat ./input.txt
+echo "---------------------------------"
+echo "o/p:"
+cat ./output.txt
