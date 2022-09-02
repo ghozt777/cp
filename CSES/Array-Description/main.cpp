@@ -1,107 +1,70 @@
 /*
 	Author: ghozt777
 	codeforces: https://codeforces.com/profile/ghozt777
-    Time: Mon 22 Aug 2022 12:24:14 AM IST
+    Time: Mon Aug 22 13:13:18 IST 2022
 	Link to problem / contest : https://cses.fi/problemset/task/1746
 */
- 
- 
+
+
 #include<bits/stdc++.h>
 using namespace std ;
- 
+
 using ll = long long ;
 using vi = vector<int> ;
 using vvi = vector<vi> ;
 using pi = pair<int , int> ;
- 
-#define EB emplace_back
-#define PBK pop_back
+
 #define PB push_back
 #define MP make_pair
-#define f(n) for(int i=0;i<n;i++)
-#define fr(itr, n) for(int itr=0;itr<n;itr++)
-#define F(s,e) for(int i=s;i<=e;i++)
-#define c(arr,x) count(arr.begin() , arr.end() , x)
-#define _max(arr) * max_element(arr.begin() , arr.end())
-#define _min(arr) * min_element(arr.begin() , arr.end())
-#define _max_pos(arr) max_element(arr.begin() , arr.end()) - arr.begin()
-#define _min_pos(arr) min_element(arr.begin() , arr.end()) - arr.begin()
-#define what_is(x) cout << #x << ": " << x << endl ;
-#define error(args...) { string _s = #args; replace(_s.begin(), _s.end(), ',', ' '); stringstream _ss(_s); istream_iterator<string> _it(_ss); err(_it, args); }
-// requires c++17
-template<typename... Args>void read(Args&... args){((cin >> args), ...);}
+#define all(x) x.begin(),x.end()
+#define _max(arr) * max_element(all(x))
+#define _min(arr) * min_element(all(x))
+#define _max_pos(arr) max_element(all(x)) - arr.begin()
+#define _min_pos(arr) min_element(all(x)) - arr.begin()
 template<typename T>void read(vector<T> &arr){for(auto & a : arr) cin >> a ;}
 template<typename T>void write(vector<T> &arr){for(auto & a : arr) cout << a << " " ;}
-const ll MOD = pow(10,9)+7 ;
- 
-ll res=0;
-ll ub;
- 
-bool check(vector<ll>&arr){ 
-	ll last=-1;
-	for(ll &x:arr){
-		if(last!=-1){
-			if(abs(x-last)>1||x>ub) return false;
-		}
-		last=x;
-	}
-	return true;
-}
- 
- 
-void dfs(vector<ll>&A,ll v){
-	if(v>=A.size()){
-		res=res%MOD+(ll)check(A);
-		return;
-	}
-	if(!A[v]){
-		if(v==0){
-			for(ll x=1;x<=ub;x++){
-				ll og=A[v];
-				A[v]=x;
-				dfs(A,v+1);
-				A[v]=og;
-			}
+const ll MOD = 1e9+7 ;
+const ll INF = INT_MAX;
+// count set bits in a given number
+template <typename T>
+int cnt_set_bits(T n){int res=0;while(n){n=n&(n-1);++res;}return res;}
+
+//-----------------------------------------------------------------------------------------------
+
+void tc(){
+	ll N,M;
+	cin>>N>>M;
+	vector<ll> A(N);
+	read(A);
+	vector<vector<ll>> dp(N,vector<ll>(M+1,0)); // dp states : [current_index][value_at_current_index]
+	for(ll i=0;i<N;i++){
+		if(A[i]){
+			// we can't add any vlaue here
+			ll j=A[i];
+			// if we are not at the first element we can still add different array configs based on the rule abs(arr[i]-arr[i-1])<=1
+			if(i!=0)for(ll k=max((ll)1,j-1);k<=min(M,j+1);k++) dp[i][j]=dp[i][j]%MOD+dp[i-1][k]%MOD;
+			// there only 1 config for this case
+			else dp[i][j]=1;
 		}
 		else{
-			for(ll x=max(A[v-1]-1,(ll)1);x<=min(A[v-1]+1,ub);x++){
-				ll og=A[v];
-				A[v]=x;
-				dfs(A,v+1);
-				A[v]=og;
+			if(i==0){
+				// we can add each number once in the first position
+				for(ll k=1;k<=M;k++) dp[i][k]=1;
+			}
+			// we can add configs based on the previous config according to the rule of abs(arr[i]-arr[i-1])<=1 i.e. for a value lets say j we can add config from the array od size one smaller than the current one by looking up no of ways to make (j-1,j,j+1) as the last elemetn
+			else{
+				for(ll j=1;j<=M;j++){
+					for(ll k=max((ll)1,j-1);k<=min(M,j+1);k++) dp[i][j]=dp[i][j]%MOD+dp[i-1][k]%MOD;
+				}
 			}
 		}
-	}else{
-		dfs(A,v+1);
 	}
-}
- 
-ll bf(){
-	ll N,M;
-	cin>>N>>M;
-	ub=M;
-	vector<ll> A(N);
-	for(auto &x:A)cin>>x;
-	dfs(A,0);
-	cout<<res<<endl;
+	ll res=0;
+	// finally we sum of the total number of different ways with size N and numbers 1 to M as the last elelemt
+	for(ll x:dp[N-1]) res=res%MOD+x%MOD;
+	cout<<res%MOD<<endl;
 }
 
-ll dp(){
-	ll N,M;
-	cin>>N>>M;
-	ll sz=N+1
-	ll dp[sz];
-	vector<ll> A(N);
-	for(auto &x:A)cin>>x;
-	
-	cout<<dp[N]<<endl;
-}
- 
-void solve(){
-	// to execute for each test case
-	bf();
-}	
- 
 int main(){
 	// io optimization
 	// please make sure to flush the o/p stream using endl or cout.flush()
@@ -110,7 +73,8 @@ int main(){
     cout << std::fixed;
     cout << std::setprecision(12);
 	int t=1;
-	while(t--) solve() ;
- 
+	while(t--) tc() ;
+
 	return EXIT_SUCCESS ;
 }
+
