@@ -1,4 +1,4 @@
-# !/bin/bash
+#!/bin/bash
 function print_success(){
     echo $'\e[1;32m'✅ Compilation Successful ✨$'\e[0m' ;
 }
