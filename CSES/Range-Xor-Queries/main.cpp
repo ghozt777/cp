@@ -1,8 +1,8 @@
 /*
 	Author: ghozt777
 	codeforces: https://codeforces.com/profile/ghozt777
-    Time: Wed Aug 10 20:16:20 IST 2022
-	Link to problem / contest : https://cses.fi/problemset/task/1651
+    Time: Mon Aug 22 14:50:48 IST 2022
+	Link to problem / contest : https://cses.fi/problemset/task/1650
 */
 
 
@@ -36,21 +36,18 @@ public:
 	ll val;
 	ll start;
 	ll end;
-	ll lazy;
 	Node(){}
 	Node(ll val,ll start,ll end){
 		this->val=val;
 		this->start=start;
 		this->end=end;
-		this->lazy=0;
 	}
 };
-
 
 class SegTree{
 	vector<Node> t;
 	void calc(ll v){
-		t[v].val=t[2*v].val+t[2*v+1].val;
+		t[v].val=t[2*v].val^t[2*v+1].val;
 	}
 	void build(vector<ll>&A,ll start,ll end,ll v){
 		Node n(-1,start,end);
@@ -66,18 +63,9 @@ class SegTree{
 	}
 	ll query_helper(ll start,ll end,ll v){
 		Node &curr=t[v];
-		if(curr.lazy){
-			curr.val+=(curr.end-curr.start+1)*curr.lazy;
-			if(curr.start!=curr.end){
-				t[2*v].lazy+=curr.lazy;
-				t[2*v+1].lazy+=curr.lazy;
-			}
-			curr.lazy=0;
-		}
-
 		if(curr.start>end||curr.end<start) return 0;
 		if(curr.start>=start&&curr.end<=end) return curr.val;
-		return query_helper(start,end,2*v)+query_helper(start,end,2*v+1);
+		return query_helper(start,end,2*v)^query_helper(start,end,2*v+1);
 	}
 	void update_helper(ll pos,ll val,ll v){
 		Node &curr=t[v];
@@ -89,35 +77,6 @@ class SegTree{
 		if(pos<=mid) update_helper(pos,val,2*v);
 		else update_helper(pos,val,2*v+1);
 		calc(v);
-	}
-	void update_helper(ll start,ll end,ll diff,ll v){
-		Node &curr=t[v];
-		
-		if(curr.lazy){
-			curr.val+=(curr.end-curr.start+1)*curr.lazy;
-			if(curr.start!=curr.end){
-				t[2*v].lazy+=curr.lazy;
-				t[2*v+1].lazy+=curr.lazy;
-			}
-			curr.lazy=0;
-		}
-
-		if(curr.start>end||curr.end<start) return;
-
-		if(curr.start>=start&&curr.end<=end){
-			curr.val+=(curr.end-curr.start+1)*diff;
-			if(curr.start!=curr.end){
-				t[2*v].lazy+=diff;
-				t[2*v+1].lazy+=diff;
-			}
-			return;
-		}
-
-		update_helper(start,end,diff,2*v);
-		update_helper(start,end,diff,2*v+1);
-
-		calc(v);
-
 	}
 public:
 	SegTree(vector<ll>A){
@@ -131,33 +90,19 @@ public:
 	void update(ll pos,ll val){
 		update_helper(pos,val,1);
 	}
-	void update(ll start,ll end,ll diff){
-		update_helper(start,end,diff,1);
-	}
 };
-
 
 void tc(){
 	ll N,Q;
 	cin>>N>>Q;
-	vector<ll> arr(N);
-	read(arr);
-	SegTree sg(arr);
+	vector<ll> A(N);
+	read(A);
+	SegTree sg(A);
 	for(ll qq=0;qq<Q;qq++){
-		ll k;
-		cin>>k;
-		if(k==1){
-			ll start,end,diff;
-			cin>>start>>end>>diff;
-			--start,--end;
-			sg.update(start,end,diff);
-		}
-		else{
-			ll pos;
-			cin>>pos;
-			--pos;
-			cout<<sg.query(pos,pos)<<endl;
-		}
+		ll start,end;
+		cin>>start>>end;
+		--start,--end;
+		cout<<sg.query(start,end)<<endl;
 	}
 }
 
