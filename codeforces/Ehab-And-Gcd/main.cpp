@@ -2,19 +2,9 @@
 	Author: ghozt777
 	codeforces: https://codeforces.com/profile/ghozt777
     Time: Sunday 12 June 2022 04:00:42 PM IST
-	Link to problem / contest : https://codeforces.com/gym/348180/problem/B
+	Link to problem / contest : 
 */
 
-/*
-	BASIC IDEA : 
-
-	given X find a divisor y of X -> so we can then have the answer as (y , X - y)
-	Reason beign we can express X as X = k.y (k = integer)
-	Therefore the answer becomes (y , k.y - y) -> (y , (k - 1).y)
-	So Here the GCD = y 
-	snd LCM = X - y = (k - 1).y
-	Now we can always choose y = 1 so the answer becomes -> (1 , X - 1)
-*/
 
 #include<bits/stdc++.h>
 using namespace std ;
@@ -24,6 +14,7 @@ using vi = vector<int> ;
 using vvi = vector<vi> ;
 using pi = pair<int , int> ;
 
+#define REP(i,s,e) for(int i=s;i<=e;i++)
 #define EB emplace_back
 #define PBK pop_back
 #define PB push_back
@@ -38,25 +29,29 @@ using pi = pair<int , int> ;
 #define _min_pos(arr) min_element(arr.begin() , arr.end()) - arr.begin()
 #define what_is(x) cout << #x << ": " << x << endl ;
 #define error(args...) { string _s = #args; replace(_s.begin(), _s.end(), ',', ' '); stringstream _ss(_s); istream_iterator<string> _it(_ss); err(_it, args); }
-// requires c++17
 template<typename... Args>void read(Args&... args){((cin >> args), ...);}
 template<typename T>void read(vector<T> &arr){for(auto & a : arr) cin >> a ;}
 template<typename T>void write(vector<T> &arr){for(auto & a : arr) cout << a << " " ;}
 const ll MOD = pow(10,9)+7 ;
 
-
+// graphs
 vvi adj ;
 vector<bool> vis ;
 void init(int v){adj.clear() ;vis.clear() ;adj.resize(v) ;vis.resize(v , false) ;}
 void dfs(int s){vis[s] = true ;for(auto x : adj[s]) if(!vis[x]) dfs(x) ;}
 
+// count set bits in a given number
+template <typename T>
+int cnt_set_bits(T n){int res=0;while(n){n=n&(n-1);++res;}return res;}
+
+//-----------------------------------------------------------------------------------------------
+
 void solve(){
-	to execute for each test case
+	// to execute for each test case
 	ll X ;
 	cin >> X ;
 	cout << 1 << " " << X - 1 << endl ;
 }
-
 
 int main(){
 	// io optimization
@@ -67,8 +62,7 @@ int main(){
     cout << std::setprecision(12);
 	int t ;
 	cin >> t ;
-	while(t--) solve() ;
+	REP(i,1,t) solve() ;
 
 	return EXIT_SUCCESS ;
 }
-
