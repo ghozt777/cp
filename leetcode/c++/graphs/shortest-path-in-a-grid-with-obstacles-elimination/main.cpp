@@ -1,7 +1,3 @@
-#include <bits/stdc++.h>
-
-using namespace std ;
-
 class Solution {
     const int INF = INT_MAX;
     set<pair<int,int>> vis ;
@@ -33,8 +29,8 @@ class Solution {
         
         return res == INF ? res : res + 1 ;
     }
-	
-	int bfs(vector<vector<int>> &grid,int k){
+    
+    int bfs(vector<vector<int>> &grid,int k){
 		queue<vector<int>> q; 
 		vector<vector<int>> lives(grid.size() , vector<int>(grid[0].size(), - 1)); 
 		
@@ -73,16 +69,13 @@ class Solution {
 
 		return -1 ;
 	}
-	
+    
 public:
     int shortestPath(vector<vector<int>>& grid, int k) {
-		return bfs(grid,k) ;
+        // if(grid[0][0] == 1 || grid[grid.size() - 1][grid[0].size() - 1] == 1) return -1 ;
+        // vis.insert({0,0});
+        // int res = dfs(grid,0,0,k) ;
+        // return res == INF ? -1 : res ; 
+        return bfs(grid,k) ;
     }
 };
-
-int main(){
-	Solution s;
-	vector<vector<int>> grid = {{0,0,0,0,0,0,0,0,0,0},{0,1,1,1,1,1,1,1,1,0},{0,1,0,0,0,0,0,0,0,0},{0,1,0,1,1,1,1,1,1,1},{0,1,0,0,0,0,0,0,0,0},{0,1,1,1,1,1,1,1,1,0},{0,1,0,0,0,0,0,0,0,0},{0,1,0,1,1,1,1,1,1,1},{0,1,0,1,1,1,1,0,0,0},{0,1,0,0,0,0,0,0,1,0},{0,1,1,1,1,1,1,0,1,0},{0,0,0,0,0,0,0,0,1,0}}; 
-	cout << s.shortestPath(grid, 1) ;
-	return EXIT_SUCCESS ;
-}
