@@ -31,8 +31,65 @@ int cnt_set_bits(T n){int res=0;while(n){n=n&(n-1);++res;}return res;}
 
 //-----------------------------------------------------------------------------------------------
 
+
+vector<vector<ll>> adj ;
+vector<bool> vis ;
+
+void dfs(ll curr,vector<ll> &st,ll p_curr = -1){
+	st.push_back(curr);
+	vis[curr] = true ;
+	for(ll x : adj[curr]){
+		if(x == p_curr) continue;
+		if(vis[x]){
+			reverse(st.begin(),st.end());
+			vector<ll> res ;
+			set<ll> s;
+			res.push_back(x);
+			s.insert(x);
+			for(ll y : st){
+				if(s.find(y) == s.end()){
+					res.push_back(y);
+					s.insert(y);
+				}
+				else{
+					res.push_back(y);
+					break;
+				}
+			}
+			cout << res.size() << "\n" ;
+			for(ll y : res) cout << y +1 << " ";
+			cout << endl;
+			exit(0);
+		}
+		else dfs(x,st,curr);
+	}
+	st.pop_back();
+	return ;
+}
+
+
 void tc(){
-	// test 
+	ll N , M ;
+	cin >> N >> M ;
+	adj.clear();
+	vis.clear();
+	adj.resize(N);
+	vis.resize(N,false);
+	for(ll i = 0 ; i < M ; i++){
+		ll u , v ;
+		cin >> u >> v ;
+		--u , --v;
+		adj[u].push_back(v);
+		adj[v].push_back(u);
+	}
+	vector<ll> st;
+	for(ll i = 0 ; i < N ; i++){
+		if(!vis[i]){
+			dfs(i,st);
+		}
+	}
+	cout << "IMPOSSIBLE" << endl;
+	return ;
 }
 
 int main(){
@@ -42,8 +99,7 @@ int main(){
 	cin.tie(NULL) ;
     cout << std::fixed;
     cout << std::setprecision(12);
-	int t ;
-	cin >> t ;
+	int t = 1;
 	while(t--) tc() ;
 
 	return EXIT_SUCCESS ;
