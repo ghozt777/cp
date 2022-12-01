@@ -1,88 +1,103 @@
-#include <bits/stdc++.h>
-
+#include<bits/stdc++.h>
 using namespace std ;
 
-class Solution {
-    const int INF = INT_MAX;
-    set<pair<int,int>> vis ;
-    vector<pair<int,int>> dirs = {
-        {1,0},
-        {-1,0},
-        {0,1},
-        {0,-1},
-    } ;
-    int dfs(vector<vector<int>>&grid,int x,int y,int k){
-        
-        if(x < 0 || y < 0 || x >= grid.size() || y >= grid[0].size()) return INF ;
-        if(x == grid.size() - 1 && y == grid[0].size() - 1) return 0 ; 
-        
-        if(grid[x][y] == 1){
-            if(k > 0) --k ;
-            else return INF ;
-        }
-        
-        int res = INF ;
+// check
+
+pair<int,int> dfs(vector<vector<char>> & grid,int x,int y,string &curr,int pos=0){
+        if(x < 0 || y < 0 || x >= grid.size() || y >= grid[0].size() || grid[x][y] == '#' || grid[x][y] != curr[pos]) return {-1,-1};
+        if(pos == curr.length() - 1) return grid[x][y] == curr[pos] ? make_pair(x,y) : make_pair(-1,-1);
+        char og = grid[x][y];
+        grid[x][y] = '#';
+
+        vector<vector<int>> dirs = {
+        	{1,0},
+        	{0,1},
+        	{-1,0},
+        	{0,-1},
+        };
+
         for(auto &d:dirs){
-            int dx = x + d.first , dy = y + d.second ;
-            if(vis.find({dx,dy}) == vis.end()){ 
-                vis.insert({x,y});
-                res = min(res , dfs(grid,dx,dy,k)) ;
-                vis.erase({x,y});
-            }
+        	int dx = x + d[0] , dy = y + d[1] ;
+        	auto res = dfs(grid,dx,dy,curr,pos+1);
+        	if(res.first != -1){
+        		grid[x][y] = og;
+        		return res;
+        	}
         }
+
+        grid[x][y] = og;
         
-        return res == INF ? res : res + 1 ;
+        return {-1,-1};
     }
-	
-	int bfs(vector<vector<int>> &grid,int k){
-		queue<vector<int>> q; 
-		vector<vector<int>> lives(grid.size() , vector<int>(grid[0].size(), - 1)); 
-		
-		q.push({0 , 0 , k}); // x , y , k 
-		lives[0][0] = k ;
 
-		int curr_level = 0 ;
 
-		while(!q.empty()){
-			const int n = q.size() ;
-			for(int i = 0 ; i < n ; i++){
-				auto curr = q.front() ;
-				q.pop() ;
+    pair<int,int> exist(vector<vector<char>>& board, string word,int x = -1 ,int y = -1) {
+        if(!word.length()) return {-1,-1};
+        if(x == -1){
+	        	for(int i = 0 ; i < board.size() ; i++){
+	            for(int j = 0 ; j < board[0].size() ; j++){
+	                auto res = dfs(board,i,j,word);
+	                if(res.first != -1){
+	                	cout << res.first << " " << res.second << endl;
+	                	 return res;
+	                }
+	            }
+        	}
+        }
+        else return dfs(board,x,y,word);
+        return {-1,-1};
+    }
 
-				int x = curr[0] , y = curr[1] , life = curr[2] ;
-
-				if(grid[x][y] == 1){
-					if(life) --life ;
-					else continue ;
-				}
-
-				if((x == grid.size() - 1) && (y == grid[0].size() - 1)) return curr_level ;
-
-				lives[x][y] = life ;
-
-				for(auto &d : dirs){
-					int dx = x + d.first , dy = y + d.second ;
-					if(dx < 0 || dy < 0 || dx >= grid.size() || dy >= grid[0].size() || lives[dx][dy] >= life) continue ;
-					lives[dx][dy] = life ;
-					q.push({dx,dy,life});
-				}
-
-			}
-			++curr_level ;
-		}	
-
-		return -1 ;
+void solve(vector<vector<char>>& board, vector<string>& words){
+	 // if_word_is_there + <x,y>
+	map<string,pair<int,int>> m ;
+	for(auto &x : board){
+		for(char y : x)cout << y << " " ;
+		cout << endl;
 	}
-	
-public:
-    int shortestPath(vector<vector<int>>& grid, int k) {
-		return bfs(grid,k) ;
-    }
-};
+	for(string s : words){
+		for(int i = 0 ; i < s.length() ; i++){
+
+			string left = s.substr(0,i);
+			string right = s.substr(i);
+
+			if(m.find(left) != m.end()){
+				if(right == ""){
+					continue;
+				}
+				auto res = exist(board,right,m[left].first,m[left].second);
+				if(res.first != -1) m[s] = res;
+			}
+
+			if(m.find(right) != m.end()){
+				if(left == ""){
+					continue;
+				}
+				auto res = exist(board,right,m[right].first,m[right].second);
+				if(res.first != -1) m[s] = res;
+			}
+		}
+
+		if(m.find(s) == m.end()){
+			auto res = exist(board,s);
+			if(res.first != -1) m[s] = res;
+		}
+	}
+}
+
+/*
+
+o a a n 
+e t a e 
+i h k r 
+i f l v
+
+*/
+
 
 int main(){
-	Solution s;
-	vector<vector<int>> grid = {{0,0,0,0,0,0,0,0,0,0},{0,1,1,1,1,1,1,1,1,0},{0,1,0,0,0,0,0,0,0,0},{0,1,0,1,1,1,1,1,1,1},{0,1,0,0,0,0,0,0,0,0},{0,1,1,1,1,1,1,1,1,0},{0,1,0,0,0,0,0,0,0,0},{0,1,0,1,1,1,1,1,1,1},{0,1,0,1,1,1,1,0,0,0},{0,1,0,0,0,0,0,0,1,0},{0,1,1,1,1,1,1,0,1,0},{0,0,0,0,0,0,0,0,1,0}}; 
-	cout << s.shortestPath(grid, 1) ;
-	return EXIT_SUCCESS ;
+	vector<vector<char>> board = {{'b','a','b','a','b','a','b','a','b','a'},{'a','b','a','b','a','b','a','b','a','b'},{'b','a','b','a','b','a','b','a','b','a'},{'a','b','a','b','a','b','a','b','a','b'},{'b','a','b','a','b','a','b','a','b','a'},{'a','b','a','b','a','b','a','b','a','b'},{'b','a','b','a','b','a','b','a','b','a'},{'a','b','a','b','a','b','a','b','a','b'},{'b','a','b','a','b','a','b','a','b','a'},{'a','b','a','b','a','b','a','b','a','b'}};
+	vector<string> words = {"ababababaa","ababababab","ababababac","ababababad","ababababae","ababababaf","ababababag","ababababah","ababababai","ababababaj","ababababak","ababababal","ababababam","ababababan","ababababao","ababababap","ababababaq","ababababar","ababababas","ababababat","ababababau","ababababav","ababababaw","ababababax","ababababay","ababababaz","ababababba","ababababbb","ababababbc","ababababbd","ababababbe","ababababbf","ababababbg","ababababbh","ababababbi","ababababbj","ababababbk","ababababbl","ababababbm","ababababbn","ababababbo","ababababbp","ababababbq","ababababbr","ababababbs","ababababbt","ababababbu","ababababbv","ababababbw","ababababbx","ababababby","ababababbz","ababababca","ababababcb","ababababcc","ababababcd","ababababce","ababababcf","ababababcg","ababababch","ababababci","ababababcj","ababababck","ababababcl","ababababcm","ababababcn","ababababco","ababababcp","ababababcq","ababababcr","ababababcs","ababababct","ababababcu","ababababcv","ababababcw","ababababcx","ababababcy","ababababcz","ababababda","ababababdb","ababababdc","ababababdd","ababababde","ababababdf","ababababdg","ababababdh","ababababdi","ababababdj","ababababdk","ababababdl","ababababdm","ababababdn","ababababdo","ababababdp","ababababdq","ababababdr","ababababds","ababababdt","ababababdu","ababababdv","ababababdw","ababababdx","ababababdy","ababababdz","ababababea","ababababeb","ababababec","ababababed","ababababee","ababababef","ababababeg","ababababeh","ababababei","ababababej","ababababek","ababababel","ababababem","ababababen","ababababeo","ababababep","ababababeq","ababababer","ababababes","ababababet","ababababeu","ababababev","ababababew","ababababex","ababababey","ababababez","ababababfa","ababababfb","ababababfc","ababababfd","ababababfe","ababababff","ababababfg","ababababfh","ababababfi","ababababfj","ababababfk","ababababfl","ababababfm","ababababfn","ababababfo","ababababfp","ababababfq","ababababfr","ababababfs","ababababft","ababababfu","ababababfv","ababababfw","ababababfx","ababababfy","ababababfz","ababababga","ababababgb","ababababgc","ababababgd","ababababge","ababababgf","ababababgg","ababababgh","ababababgi","ababababgj","ababababgk","ababababgl","ababababgm","ababababgn","ababababgo","ababababgp","ababababgq","ababababgr","ababababgs","ababababgt","ababababgu","ababababgv","ababababgw","ababababgx","ababababgy","ababababgz","ababababha","ababababhb","ababababhc","ababababhd","ababababhe","ababababhf","ababababhg","ababababhh","ababababhi","ababababhj","ababababhk","ababababhl","ababababhm","ababababhn","ababababho","ababababhp","ababababhq","ababababhr","ababababhs","ababababht","ababababhu","ababababhv","ababababhw","ababababhx","ababababhy","ababababhz","ababababia","ababababib","ababababic","ababababid","ababababie","ababababif","ababababig","ababababih","ababababii","ababababij","ababababik","ababababil","ababababim","ababababin","ababababio","ababababip","ababababiq","ababababir","ababababis","ababababit","ababababiu","ababababiv","ababababiw","ababababix","ababababiy","ababababiz","ababababja","ababababjb","ababababjc","ababababjd","ababababje","ababababjf","ababababjg","ababababjh","ababababji","ababababjj","ababababjk","ababababjl","ababababjm","ababababjn","ababababjo","ababababjp","ababababjq","ababababjr","ababababjs","ababababjt","ababababju","ababababjv","ababababjw","ababababjx","ababababjy","ababababjz","ababababka","ababababkb","ababababkc","ababababkd","ababababke","ababababkf","ababababkg","ababababkh","ababababki","ababababkj","ababababkk","ababababkl","ababababkm","ababababkn","ababababko","ababababkp","ababababkq","ababababkr","ababababks","ababababkt","ababababku","ababababkv","ababababkw","ababababkx","ababababky","ababababkz","ababababla","abababablb","abababablc","ababababld","abababable","abababablf","abababablg","abababablh","ababababli","abababablj","abababablk","ababababll","abababablm","ababababln","abababablo","abababablp","abababablq","abababablr","ababababls","abababablt","abababablu","abababablv","abababablw","abababablx","abababably","abababablz","ababababma","ababababmb","ababababmc","ababababmd","ababababme","ababababmf","ababababmg","ababababmh","ababababmi","ababababmj","ababababmk","ababababml","ababababmm","ababababmn","ababababmo","ababababmp","ababababmq","ababababmr","ababababms","ababababmt","ababababmu","ababababmv","ababababmw","ababababmx","ababababmy","ababababmz","ababababna","ababababnb","ababababnc","ababababnd","ababababne","ababababnf","ababababng","ababababnh","ababababni","ababababnj","ababababnk","ababababnl","ababababnm","ababababnn","ababababno","ababababnp","ababababnq","ababababnr","ababababns","ababababnt","ababababnu","ababababnv","ababababnw","ababababnx","ababababny","ababababnz","ababababoa","ababababob","ababababoc","ababababod","ababababoe","ababababof","ababababog","ababababoh","ababababoi","ababababoj","ababababok","ababababol","ababababom","ababababon","ababababoo","ababababop","ababababoq","ababababor","ababababos","ababababot","ababababou","ababababov","ababababow","ababababox","ababababoy","ababababoz","ababababpa","ababababpb","ababababpc","ababababpd","ababababpe","ababababpf","ababababpg","ababababph","ababababpi","ababababpj","ababababpk","ababababpl","ababababpm","ababababpn","ababababpo","ababababpp","ababababpq","ababababpr","ababababps","ababababpt","ababababpu","ababababpv","ababababpw","ababababpx","ababababpy","ababababpz","ababababqa","ababababqb","ababababqc","ababababqd","ababababqe","ababababqf","ababababqg","ababababqh","ababababqi","ababababqj","ababababqk","ababababql","ababababqm","ababababqn","ababababqo","ababababqp","ababababqq","ababababqr","ababababqs","ababababqt","ababababqu","ababababqv","ababababqw","ababababqx","ababababqy","ababababqz","ababababra","ababababrb","ababababrc","ababababrd","ababababre","ababababrf","ababababrg","ababababrh","ababababri","ababababrj","ababababrk","ababababrl","ababababrm","ababababrn","ababababro","ababababrp","ababababrq","ababababrr","ababababrs","ababababrt","ababababru","ababababrv","ababababrw","ababababrx","ababababry","ababababrz","ababababsa","ababababsb","ababababsc","ababababsd","ababababse","ababababsf","ababababsg","ababababsh","ababababsi","ababababsj","ababababsk","ababababsl","ababababsm","ababababsn","ababababso","ababababsp","ababababsq","ababababsr","ababababss","ababababst","ababababsu","ababababsv","ababababsw","ababababsx","ababababsy","ababababsz","ababababta","ababababtb","ababababtc","ababababtd","ababababte","ababababtf","ababababtg","ababababth","ababababti","ababababtj","ababababtk","ababababtl","ababababtm","ababababtn","ababababto","ababababtp","ababababtq","ababababtr","ababababts","ababababtt","ababababtu","ababababtv","ababababtw","ababababtx","ababababty","ababababtz","ababababua","ababababub","ababababuc","ababababud","ababababue","ababababuf","ababababug","ababababuh","ababababui","ababababuj","ababababuk","ababababul","ababababum","ababababun","ababababuo","ababababup","ababababuq","ababababur","ababababus","ababababut","ababababuu","ababababuv","ababababuw","ababababux","ababababuy","ababababuz","ababababva","ababababvb","ababababvc","ababababvd","ababababve","ababababvf","ababababvg","ababababvh","ababababvi","ababababvj","ababababvk","ababababvl","ababababvm","ababababvn","ababababvo","ababababvp","ababababvq","ababababvr","ababababvs","ababababvt","ababababvu","ababababvv","ababababvw","ababababvx","ababababvy","ababababvz","ababababwa","ababababwb","ababababwc","ababababwd","ababababwe","ababababwf","ababababwg","ababababwh","ababababwi","ababababwj","ababababwk","ababababwl","ababababwm","ababababwn","ababababwo","ababababwp","ababababwq","ababababwr","ababababws","ababababwt","ababababwu","ababababwv","ababababww","ababababwx","ababababwy","ababababwz","ababababxa","ababababxb","ababababxc","ababababxd","ababababxe","ababababxf","ababababxg","ababababxh","ababababxi","ababababxj","ababababxk","ababababxl","ababababxm","ababababxn","ababababxo","ababababxp","ababababxq","ababababxr","ababababxs","ababababxt","ababababxu","ababababxv","ababababxw","ababababxx","ababababxy","ababababxz","ababababya","ababababyb","ababababyc","ababababyd","ababababye","ababababyf","ababababyg","ababababyh","ababababyi","ababababyj","ababababyk","ababababyl","ababababym","ababababyn","ababababyo","ababababyp","ababababyq","ababababyr","ababababys","ababababyt","ababababyu","ababababyv","ababababyw","ababababyx","ababababyy","ababababyz","ababababza","ababababzb","ababababzc","ababababzd","ababababze","ababababzf","ababababzg","ababababzh","ababababzi","ababababzj","ababababzk","ababababzl","ababababzm","ababababzn","ababababzo","ababababzp","ababababzq","ababababzr","ababababzs","ababababzt","ababababzu","ababababzv","ababababzw","ababababzx","ababababzy","ababababzz"};
+	solve(board,words);
+	return EXIT_SUCCESS;
 }
