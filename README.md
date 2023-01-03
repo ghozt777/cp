@@ -1,4 +1,4 @@
-# Competitve Programming by ghozt777
+# Competitive Programming by ghozt777
 to create a directory with all the required files for the competition :
 - create an executable file of the script (there are a couple of templates to choose from) Eg:
 ```
