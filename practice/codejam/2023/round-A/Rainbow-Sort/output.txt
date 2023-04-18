@@ -1,0 +1,2 @@
+Case #0: 3 8 2 
+Case #1: IMPOSSIBLE
